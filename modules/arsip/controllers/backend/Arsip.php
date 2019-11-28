@@ -332,6 +332,153 @@ class Arsip extends Admin
 
 		echo json_encode($this->data);
 	}
+
+		/**
+	* Update view Data Arsips
+	*
+	* @var $id String
+	*/
+	public function edit_arsip_pribadi()
+	{
+		$this->is_allowed('edit_arsip_pribadi');
+		$nama = $this->aauth->get_user()->full_name;
+		$this->data['arsip'] = db_get_data('arsip', ['nama'=>$nama]);
+
+		$this->template->title('Data Arsip Pribadi');
+		$this->render('backend/standart/administrator/arsip/edit_arsip_pribadi', $this->data);
+	}
+
+	/**
+	* Update Data Arsips
+	*
+	* @var $id String
+	*/
+	public function edit_arsip_pribadi_save()
+	{
+		if (!$this->is_allowed('edit_arsip_pribadi', false)) {
+			echo json_encode([
+				'success' => false,
+				'message' => cclang('sorry_you_do_not_have_permission_to_access')
+				]);
+			exit;
+		}
+
+		$nama = $this->input->get('nama');
+		$id = db_get_data('arsip', ['nama'=>$nama])->id;
+		
+		$this->form_validation->set_rules('nama', 'Nama', 'trim|required');
+		$this->form_validation->set_rules('arsip_ktp_name', 'Kartu Tanda Penduduk', 'trim|required');
+		$this->form_validation->set_rules('arsip_kk_name', 'Kartu Keluarga', 'trim|required');
+		$this->form_validation->set_rules('arsip_foto_name[]', 'Foto Formal (2x3, 3x4, 4x6)', 'trim|required');
+		
+		if ($this->form_validation->run()) {
+			$arsip_ktp_uuid = $this->input->post('arsip_ktp_uuid');
+			$arsip_ktp_name = $this->input->post('arsip_ktp_name');
+			$arsip_kk_uuid = $this->input->post('arsip_kk_uuid');
+			$arsip_kk_name = $this->input->post('arsip_kk_name');
+		
+			$save_data = [
+				'nama' => $this->input->post('nama'),
+			];
+
+			if (!is_dir(FCPATH . '/uploads/arsip/')) {
+				mkdir(FCPATH . '/uploads/arsip/');
+			}
+
+			if (!empty($arsip_ktp_uuid)) {
+				$arsip_ktp_name_copy = date('YmdHis') . '-' . $arsip_ktp_name;
+
+				rename(FCPATH . 'uploads/tmp/' . $arsip_ktp_uuid . '/' . $arsip_ktp_name, 
+						FCPATH . 'uploads/arsip/' . $arsip_ktp_name_copy);
+
+				if (!is_file(FCPATH . '/uploads/arsip/' . $arsip_ktp_name_copy)) {
+					echo json_encode([
+						'success' => false,
+						'message' => 'Error uploading file'
+						]);
+					exit;
+				}
+
+				$save_data['ktp'] = $arsip_ktp_name_copy;
+			}
+		
+			if (!empty($arsip_kk_uuid)) {
+				$arsip_kk_name_copy = date('YmdHis') . '-' . $arsip_kk_name;
+
+				rename(FCPATH . 'uploads/tmp/' . $arsip_kk_uuid . '/' . $arsip_kk_name, 
+						FCPATH . 'uploads/arsip/' . $arsip_kk_name_copy);
+
+				if (!is_file(FCPATH . '/uploads/arsip/' . $arsip_kk_name_copy)) {
+					echo json_encode([
+						'success' => false,
+						'message' => 'Error uploading file'
+						]);
+					exit;
+				}
+
+				$save_data['kk'] = $arsip_kk_name_copy;
+			}
+		
+			$listed_image = [];
+			if (count((array) $this->input->post('arsip_foto_name'))) {
+				foreach ((array) $_POST['arsip_foto_name'] as $idx => $file_name) {
+					if (isset($_POST['arsip_foto_uuid'][$idx]) AND !empty($_POST['arsip_foto_uuid'][$idx])) {
+						$arsip_foto_name_copy = date('YmdHis') . '-' . $file_name;
+
+						rename(FCPATH . 'uploads/tmp/' . $_POST['arsip_foto_uuid'][$idx] . '/' .  $file_name, 
+								FCPATH . 'uploads/arsip/' . $arsip_foto_name_copy);
+
+						$listed_image[] = $arsip_foto_name_copy;
+
+						if (!is_file(FCPATH . '/uploads/arsip/' . $arsip_foto_name_copy)) {
+							echo json_encode([
+								'success' => false,
+								'message' => 'Error uploading file'
+								]);
+							exit;
+						}
+					} else {
+						$listed_image[] = $file_name;
+					}
+				}
+			}
+			
+			$save_data['foto'] = implode($listed_image, ',');
+			
+			$save_arsip = $this->model_arsip->change($id, $save_data);
+
+			if ($save_arsip) {
+				if ($this->input->post('save_type') == 'stay') {
+					$this->data['success'] = true;
+					$this->data['id'] 	   = $id;
+					$this->data['message'] = cclang('success_update_data_stay', [
+						anchor('administrator/arsip', ' Go back to list')
+					]);
+				} else {
+					set_message(
+						cclang('success_update_data_redirect', [
+					]), 'success');
+
+            		$this->data['success'] = true;
+					$this->data['redirect'] = base_url('administrator/arsip');
+				}
+			} else {
+				if ($this->input->post('save_type') == 'stay') {
+					$this->data['success'] = false;
+					$this->data['message'] = cclang('data_not_change');
+				} else {
+            		$this->data['success'] = false;
+            		$this->data['message'] = cclang('data_not_change');
+					$this->data['redirect'] = base_url('administrator/arsip');
+				}
+			}
+		} else {
+			$this->data['success'] = false;
+			$this->data['message'] = validation_errors();
+		}
+
+		echo json_encode($this->data);
+	}
 	
 	/**
 	* delete Data Arsips

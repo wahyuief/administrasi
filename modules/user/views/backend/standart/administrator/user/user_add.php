@@ -136,7 +136,7 @@ jQuery(document).ready(domo);
 
                         <div class="col-sm-8">
                           <input type="text" class="form-control" name="rt" id="rt" placeholder="RT Berapa" value="<?= set_value('rt'); ?>">
-                          <small class="info help-block">The full name of user.</small>
+                          <small class="info help-block">RT Berapa?.</small>
                         </div>
                     </div>
 
@@ -145,7 +145,7 @@ jQuery(document).ready(domo);
 
                         <div class="col-sm-8">
                           <input type="text" class="form-control" name="rw" id="rw" placeholder="RW Berapa" value="<?= set_value('rw'); ?>">
-                          <small class="info help-block">The full name of user.</small>
+                          <small class="info help-block">RW Berapa?.</small>
                         </div>
                     </div>
 

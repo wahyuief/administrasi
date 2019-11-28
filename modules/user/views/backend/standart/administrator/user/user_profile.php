@@ -109,7 +109,9 @@ jQuery(document).ready(domo);
                     </div>
                    <div class="row-fluid col-md-12" >
                         <?php is_allowed('user_update_profile', function() use ($user){?>
-                        <a class="btn btn-flat btn-info btn-warning btn_edit btn_action" id="btn_edit" data-stype='back' title="edit profile (Ctrl+e)" href="<?= site_url('administrator/user/edit_profile/'.$user->id); ?>"><i class="fa fa-edit" ></i> Edit Profile</a>
+                        <a class="btn btn-flat btn-info btn-warning btn_edit btn_action" id="btn_edit" data-stype='back' title="edit profile (Ctrl+e)" href="<?= site_url('administrator/user/edit_profile'); ?>"><i class="fa fa-edit" ></i> Edit Profile</a>
+                        <a class="btn btn-flat btn-info btn-warning btn_edit btn_action" id="btn_edit" data-stype='back' title="edit profile (Ctrl+e)" href="<?= site_url('administrator/penduduk/edit_data_pribadi'); ?>"><i class="fa fa-edit" ></i> Edit Data Pribadi</a>
+                        <a class="btn btn-flat btn-info btn-warning btn_edit btn_action" id="btn_edit" data-stype='back' title="edit profile (Ctrl+e)" href="<?= site_url('administrator/arsip/edit_arsip_pribadi'); ?>"><i class="fa fa-edit" ></i> Edit Arsip Pribadi</a>
                         <?php }) ?>
                   </div>
 

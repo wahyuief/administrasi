@@ -1,11 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Model_penduduk extends MY_Model {
+class Model_kelurahan extends MY_Model {
 
-	private $primary_key 	= 'id';
-	private $table_name 	= 'penduduk';
-	private $field_search 	= ['nik', 'nama_lengkap', 'jenis_kelamin', 'tanggal_lahir', 'agama', 'pekerjaan', 'rt', 'rw'];
+	private $primary_key 	= 'kel_id';
+	private $table_name 	= 'kelurahan';
+	private $field_search 	= ['nama_kelurahan'];
 
 	public function __construct()
 	{
@@ -29,16 +29,16 @@ class Model_penduduk extends MY_Model {
         if (empty($field)) {
 	        foreach ($this->field_search as $field) {
 	            if ($iterasi == 1) {
-	                $where .= "penduduk.".$field . " LIKE '%" . $q . "%' ";
+	                $where .= "kelurahan.".$field . " LIKE '%" . $q . "%' ";
 	            } else {
-	                $where .= "OR " . "penduduk.".$field . " LIKE '%" . $q . "%' ";
+	                $where .= "OR " . "kelurahan.".$field . " LIKE '%" . $q . "%' ";
 	            }
 	            $iterasi++;
 	        }
 
 	        $where = '('.$where.')';
         } else {
-        	$where .= "(" . "penduduk.".$field . " LIKE '%" . $q . "%' )";
+        	$where .= "(" . "kelurahan.".$field . " LIKE '%" . $q . "%' )";
         }
 
 		$this->join_avaiable()->filter_avaiable();
@@ -59,16 +59,16 @@ class Model_penduduk extends MY_Model {
         if (empty($field)) {
 	        foreach ($this->field_search as $field) {
 	            if ($iterasi == 1) {
-	                $where .= "penduduk.".$field . " LIKE '%" . $q . "%' ";
+	                $where .= "kelurahan.".$field . " LIKE '%" . $q . "%' ";
 	            } else {
-	                $where .= "OR " . "penduduk.".$field . " LIKE '%" . $q . "%' ";
+	                $where .= "OR " . "kelurahan.".$field . " LIKE '%" . $q . "%' ";
 	            }
 	            $iterasi++;
 	        }
 
 	        $where = '('.$where.')';
         } else {
-        	$where .= "(" . "penduduk.".$field . " LIKE '%" . $q . "%' )";
+        	$where .= "(" . "kelurahan.".$field . " LIKE '%" . $q . "%' )";
         }
 
         if (is_array($select_field) AND count($select_field)) {
@@ -78,23 +78,15 @@ class Model_penduduk extends MY_Model {
 		$this->join_avaiable()->filter_avaiable();
         $this->db->where($where);
         $this->db->limit($limit, $offset);
-        $this->db->order_by('penduduk.'.$this->primary_key, "DESC");
+        $this->db->order_by('kelurahan.'.$this->primary_key, "DESC");
 		$query = $this->db->get($this->table_name);
 
 		return $query->result();
 	}
 
     public function join_avaiable() {
-        $this->db->join('aauth_users', 'aauth_users.username = penduduk.nik', 'LEFT');
-        $this->db->join('kota', 'kota.nama = penduduk.tempat_lahir', 'LEFT');
-        $this->db->join('golongandarah', 'golongandarah.nama = penduduk.golongan_darah', 'LEFT');
-        $this->db->join('agama', 'agama.nama = penduduk.agama', 'LEFT');
-        $this->db->join('pendidikan', 'pendidikan.nama = penduduk.pendidikan_akhir', 'LEFT');
-        $this->db->join('pekerjaan', 'pekerjaan.nama = penduduk.pekerjaan', 'LEFT');
-        $this->db->join('statuskawin', 'statuskawin.nama = penduduk.status_perkawinan', 'LEFT');
-        $this->db->join('statuskeluarga', 'statuskeluarga.nama = penduduk.status_keluarga', 'LEFT');
         
-    	$this->db->select('penduduk.*,aauth_users.username as aauth_users_username,kota.nama as kota_nama,golongandarah.nama as golongandarah_nama,agama.nama as agama_nama,pendidikan.nama as pendidikan_nama,pekerjaan.nama as pekerjaan_nama,statuskawin.nama as statuskawin_nama,statuskeluarga.nama as statuskeluarga_nama');
+    	$this->db->select('kelurahan.*');
 
 
         return $this;
@@ -107,5 +99,5 @@ class Model_penduduk extends MY_Model {
 
 }
 
-/* End of file Model_penduduk.php */
-/* Location: ./application/models/Model_penduduk.php */
+/* End of file Model_kelurahan.php */
+/* Location: ./application/models/Model_kelurahan.php */

@@ -65,8 +65,7 @@
                             </label>
                             <div class="col-sm-8">
                                 <input type="number" class="form-control" name="nkk" id="nkk" placeholder="Nomor Kartu Keluarga" value="<?= set_value('nkk', $penduduk->nkk); ?>">
-                                <small class="info help-block">
-                                <b>Format Nkk must</b> Valid Number.</small>
+                                <small class="info help-block"></small>
                             </div>
                         </div>
                                                  
@@ -75,11 +74,17 @@
                             <i class="required">*</i>
                             </label>
                             <div class="col-sm-8">
-                                <input type="number" class="form-control" name="nik" id="nik" placeholder="NIK" value="<?= set_value('nik', $penduduk->nik); ?>">
+                                <select  class="form-control chosen chosen-select-deselect" name="nik" id="nik" data-placeholder="Select Nik" >
+                                    <option value=""></option>
+                                    <?php foreach (db_get_all_data('aauth_users') as $row): ?>
+                                    <option <?=  $row->username ==  $penduduk->nik ? 'selected' : ''; ?> value="<?= $row->username ?>"><?= $row->username; ?></option>
+                                    <?php endforeach; ?>  
+                                </select>
                                 <small class="info help-block">
-                                <b>Format Nik must</b> Valid Number.</small>
+                                </small>
                             </div>
                         </div>
+
                                                  
                                                 <div class="form-group ">
                             <label for="nama_lengkap" class="col-sm-2 control-label">Nama Lengkap 

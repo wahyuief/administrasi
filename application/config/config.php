@@ -382,7 +382,7 @@ $config['encryption_key'] = 'a70aae9a2c%dd46@#e*^db90d$f&*4f5aab413c2';
 |
 */
 $config['sess_driver'] = 'files';
-$config['sess_cookie_name'] = '__8naceijne302iek392unde9u2e93u293e02091';
+$config['sess_cookie_name'] = '__8naceijne302iek392unde9u2e93u123e02091';
 $config['sess_expiration'] = 86400;
 $config['sess_save_path'] = NULL;
 $config['sess_match_ip'] = FALSE;
@@ -457,7 +457,7 @@ $config['csrf_token_name'] = '__idm102dei0e329u91210i2n11e2u92mdeh2u3h232s';
 $config['csrf_cookie_name'] = '__cmje83923ue91e9100u21nemcji9e23m89ru2893u2';
 $config['csrf_expire'] = 7200;
 $config['csrf_regenerate'] = FALSE;
-$config['csrf_exclude_uris'] = array('controller_abc/methode_abc','controller_abc/methode_def',);
+$config['csrf_exclude_uris'] = array('',);
 
 /*
 |--------------------------------------------------------------------------

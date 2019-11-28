@@ -76,7 +76,7 @@ jQuery(document).ready(domo);
                         <label for="content" class="col-sm-2 control-label">NIK </label>
 
                         <div class="col-sm-8">
-                           <?= _ent($penduduk->nik); ?>
+                           <?= _ent($penduduk->aauth_users_username); ?>
                         </div>
                     </div>
                                          

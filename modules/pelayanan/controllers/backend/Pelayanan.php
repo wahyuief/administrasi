@@ -27,6 +27,12 @@ class Pelayanan extends Admin
 	public function index($offset = 0)
 	{
 		$this->is_allowed('pelayanan_list');
+		$check_data = db_get_data('penduduk', ['nik'=>get_user_data('username')]);
+		$check_arsip = db_get_data('arsip', ['nama'=>get_user_data('full_name')]);
+		if (empty($check_data) || empty($check_arsip)) {
+			echo '<script>alert("Mohon lengkapi data anda terlebih dahulu sebelum melakukan pengajuan!");location.replace("user/profile")</script>';
+			exit;
+		}
 
 		$filter = $this->input->get('q');
 		$field 	= $this->input->get('f');

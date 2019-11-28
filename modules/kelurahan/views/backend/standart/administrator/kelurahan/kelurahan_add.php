@@ -26,11 +26,11 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        Pelayanan        <small><?= cclang('new', ['Pelayanan']); ?> </small>
+        Kelurahan        <small><?= cclang('new', ['Kelurahan']); ?> </small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class=""><a  href="<?= site_url('administrator/pelayanan'); ?>">Pelayanan</a></li>
+        <li class=""><a  href="<?= site_url('administrator/kelurahan'); ?>">Kelurahan</a></li>
         <li class="active"><?= cclang('new'); ?></li>
     </ol>
 </section>
@@ -48,55 +48,28 @@
                                 <img class="img-circle" src="<?= BASE_ASSET; ?>/img/add2.png" alt="User Avatar">
                             </div>
                             <!-- /.widget-user-image -->
-                            <h3 class="widget-user-username">Pelayanan</h3>
-                            <h5 class="widget-user-desc"><?= cclang('new', ['Pelayanan']); ?></h5>
+                            <h3 class="widget-user-username">Kelurahan</h3>
+                            <h5 class="widget-user-desc"><?= cclang('new', ['Kelurahan']); ?></h5>
                             <hr>
                         </div>
                         <?= form_open('', [
-                            'name'    => 'form_pelayanan', 
+                            'name'    => 'form_kelurahan', 
                             'class'   => 'form-horizontal', 
-                            'id'      => 'form_pelayanan', 
+                            'id'      => 'form_kelurahan', 
                             'enctype' => 'multipart/form-data', 
                             'method'  => 'POST'
                             ]); ?>
                          
                                                 <div class="form-group ">
-                            <label for="nama" class="col-sm-2 control-label">Nama Pemohon 
+                            <label for="nama_kelurahan" class="col-sm-2 control-label">Nama Kelurahan 
                             <i class="required">*</i>
                             </label>
                             <div class="col-sm-8">
-                                <?php if($this->aauth->is_admin()): ?>
-                                <select  class="form-control chosen chosen-select-deselect" name="nama" id="nama" data-placeholder="Select Nama" >
-                                    <option value=""></option>
-                                    <?php foreach (db_get_all_data('penduduk') as $row): ?>
-                                    <option value="<?= $row->nama_lengkap ?>"><?= $row->nama_lengkap; ?></option>
-                                    <?php endforeach; ?>  
-                                </select>
-                                <?php else: ?>
-                                <input type="text" class="form-control" name="nama" id="nama" value="<?= db_get_data('aauth_users', ['id'=>get_user_data('id')])->full_name; ?>" readonly>
-                                <?php endif; ?>
+                                <input type="text" class="form-control" name="nama_kelurahan" id="nama_kelurahan" placeholder="Nama Kelurahan" value="<?= set_value('nama_kelurahan'); ?>">
                                 <small class="info help-block">
                                 </small>
                             </div>
                         </div>
-
-                                                 
-                                                <div class="form-group ">
-                            <label for="tipe" class="col-sm-2 control-label">Surat Permintaan 
-                            <i class="required">*</i>
-                            </label>
-                            <div class="col-sm-8">
-                                <select  class="form-control chosen chosen-select-deselect" name="tipe" id="tipe" data-placeholder="Pilih Jenis Pengajuan" >
-                                    <option value=""></option>
-                                    <?php foreach (db_get_all_data('tipe_pelayanan') as $row): ?>
-                                    <option value="<?= $row->nama_pelayanan ?>"><?= $row->nama_pelayanan; ?></option>
-                                    <?php endforeach; ?>  
-                                </select>
-                                <small class="info help-block">
-                                </small>
-                            </div>
-                        </div>
-
                                                 
                         <div class="message"></div>
                         <div class="row-fluid col-md-7">
@@ -142,7 +115,7 @@
           },
           function(isConfirm){
             if (isConfirm) {
-              window.location.href = BASE_URL + 'administrator/pelayanan';
+              window.location.href = BASE_URL + 'administrator/kelurahan';
             }
           });
     
@@ -152,8 +125,8 @@
       $('.btn_save').click(function(){
         $('.message').fadeOut();
             
-        var form_pelayanan = $('#form_pelayanan');
-        var data_post = form_pelayanan.serializeArray();
+        var form_kelurahan = $('#form_kelurahan');
+        var data_post = form_kelurahan.serializeArray();
         var save_type = $(this).attr('data-stype');
 
         data_post.push({name: 'save_type', value: save_type});
@@ -161,7 +134,7 @@
         $('.loading').show();
     
         $.ajax({
-          url: BASE_URL + '/administrator/pelayanan/add_save',
+          url: BASE_URL + '/administrator/kelurahan/add_save',
           type: 'POST',
           dataType: 'json',
           data: data_post,

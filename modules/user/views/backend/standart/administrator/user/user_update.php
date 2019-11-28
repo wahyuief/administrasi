@@ -115,7 +115,7 @@
 
                         <div class="col-sm-8">
                           <input type="text" class="form-control" name="rt" id="rt" placeholder="RT Berapa" value="<?= set_value('rt', $user->rt); ?>">
-                          <small class="info help-block">The full name of user.</small>
+                          <small class="info help-block">RT Berapa?</small>
                         </div>
                     </div>
 
@@ -124,7 +124,7 @@
 
                         <div class="col-sm-8">
                           <input type="text" class="form-control" name="rw" id="rw" placeholder="RW Berapa" value="<?= set_value('rw', $user->rw); ?>">
-                          <small class="info help-block">The full name of user.</small>
+                          <small class="info help-block">RW Berapa?</small>
                         </div>
                     </div>
 

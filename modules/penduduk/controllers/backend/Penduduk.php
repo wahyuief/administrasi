@@ -75,7 +75,7 @@ class Penduduk extends Admin
 		}
 
 		$this->form_validation->set_rules('nkk', 'Nomor Kartu Keluarga', 'trim|required|callback_valid_number');
-		$this->form_validation->set_rules('nik', 'NIK', 'trim|required|callback_valid_number');
+		$this->form_validation->set_rules('nik', 'NIK', 'trim|required');
 		$this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'trim|required');
 		$this->form_validation->set_rules('jenis_kelamin', 'Jenis Kelamin', 'trim|required');
 		$this->form_validation->set_rules('tempat_lahir', 'Tempat Lahir', 'trim|required');
@@ -185,7 +185,114 @@ class Penduduk extends Admin
 		}
 		
 		$this->form_validation->set_rules('nkk', 'Nomor Kartu Keluarga', 'trim|required|callback_valid_number');
-		$this->form_validation->set_rules('nik', 'NIK', 'trim|required|callback_valid_number');
+		$this->form_validation->set_rules('nik', 'NIK', 'trim|required');
+		$this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'trim|required');
+		$this->form_validation->set_rules('jenis_kelamin', 'Jenis Kelamin', 'trim|required');
+		$this->form_validation->set_rules('tempat_lahir', 'Tempat Lahir', 'trim|required');
+		$this->form_validation->set_rules('tanggal_lahir', 'Tanggal Lahir', 'trim|required');
+		$this->form_validation->set_rules('golongan_darah', 'Golongan Darah', 'trim|required');
+		$this->form_validation->set_rules('agama', 'Agama', 'trim|required');
+		$this->form_validation->set_rules('pendidikan_akhir', 'Pendidikan Terakhir', 'trim|required');
+		$this->form_validation->set_rules('pekerjaan', 'Pekerjaan', 'trim|required');
+		$this->form_validation->set_rules('status_perkawinan', 'Status Perkawinan', 'trim|required');
+		$this->form_validation->set_rules('status_keluarga', 'Status Hubungan Dalam Keluarga', 'trim|required');
+		$this->form_validation->set_rules('nama_ibu', 'Nama Ibu', 'trim|required');
+		$this->form_validation->set_rules('nama_ayah', 'Nama Ayah', 'trim|required');
+		$this->form_validation->set_rules('alamat_lengkap', 'Alamat Lengkap', 'trim|required');
+		$this->form_validation->set_rules('rt', 'RT Berapa', 'trim|required');
+		$this->form_validation->set_rules('rw', 'RW Berapa', 'trim|required');
+		
+		if ($this->form_validation->run()) {
+		
+			$save_data = [
+				'nkk' => $this->input->post('nkk'),
+				'nik' => $this->input->post('nik'),
+				'nama_lengkap' => $this->input->post('nama_lengkap'),
+				'jenis_kelamin' => $this->input->post('jenis_kelamin'),
+				'tempat_lahir' => $this->input->post('tempat_lahir'),
+				'tanggal_lahir' => $this->input->post('tanggal_lahir'),
+				'golongan_darah' => $this->input->post('golongan_darah'),
+				'agama' => $this->input->post('agama'),
+				'pendidikan_akhir' => $this->input->post('pendidikan_akhir'),
+				'pekerjaan' => $this->input->post('pekerjaan'),
+				'status_perkawinan' => $this->input->post('status_perkawinan'),
+				'status_keluarga' => $this->input->post('status_keluarga'),
+				'nama_ibu' => $this->input->post('nama_ibu'),
+				'nama_ayah' => $this->input->post('nama_ayah'),
+				'alamat_lengkap' => $this->input->post('alamat_lengkap'),
+				'rt' => $this->input->post('rt'),
+				'rw' => $this->input->post('rw'),
+			];
+
+			
+			$save_penduduk = $this->model_penduduk->change($id, $save_data);
+
+			if ($save_penduduk) {
+				if ($this->input->post('save_type') == 'stay') {
+					$this->data['success'] = true;
+					$this->data['id'] 	   = $id;
+					$this->data['message'] = cclang('success_update_data_stay', [
+						anchor('administrator/penduduk', ' Go back to list')
+					]);
+				} else {
+					set_message(
+						cclang('success_update_data_redirect', [
+					]), 'success');
+
+            		$this->data['success'] = true;
+					$this->data['redirect'] = base_url('administrator/penduduk');
+				}
+			} else {
+				if ($this->input->post('save_type') == 'stay') {
+					$this->data['success'] = false;
+					$this->data['message'] = cclang('data_not_change');
+				} else {
+            		$this->data['success'] = false;
+            		$this->data['message'] = cclang('data_not_change');
+					$this->data['redirect'] = base_url('administrator/penduduk');
+				}
+			}
+		} else {
+			$this->data['success'] = false;
+			$this->data['message'] = validation_errors();
+		}
+
+		echo json_encode($this->data);
+	}
+
+	public function get_nama()
+	{
+		$nik = $this->input->get('nik');
+		$user = db_get_data('aauth_users', ['username'=>$nik]);
+		echo json_encode($user);
+	}
+
+	public function edit_data_pribadi()
+	{
+		$this->is_allowed('edit_data_pribadi');
+		$nik = $this->aauth->get_user()->username;
+		$this->data['penduduk'] = db_get_data('penduduk', ['nik'=>$nik]);
+		$this->template->title('Edit Data Pribadi');
+		$this->render('backend/standart/administrator/penduduk/edit_data_pribadi', $this->data);
+	}
+
+	/**
+	* Update Data Penduduks
+	*
+	* @var $id String
+	*/
+	public function edit_data_pribadi_save($id)
+	{
+		if (!$this->is_allowed('edit_data_pribadi', false)) {
+			echo json_encode([
+				'success' => false,
+				'message' => cclang('sorry_you_do_not_have_permission_to_access')
+				]);
+			exit;
+		}
+		
+		$this->form_validation->set_rules('nkk', 'Nomor Kartu Keluarga', 'trim|required|callback_valid_number');
+		$this->form_validation->set_rules('nik', 'NIK', 'trim|required');
 		$this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'trim|required');
 		$this->form_validation->set_rules('jenis_kelamin', 'Jenis Kelamin', 'trim|required');
 		$this->form_validation->set_rules('tempat_lahir', 'Tempat Lahir', 'trim|required');
