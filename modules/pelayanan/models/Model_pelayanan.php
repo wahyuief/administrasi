@@ -95,9 +95,21 @@ class Model_pelayanan extends MY_Model {
     }
 
     public function filter_avaiable() {
-        
+        if ($this->aauth->is_member(2) == 1) {
+			$this->db->where('rt', get_user_data('rt'));
+			$this->db->where('rw', get_user_data('rw'));
+		}
+
+		if ($this->aauth->is_member(3) == 1) {
+			$this->db->where('rw', get_user_data('rw'));
+		}
+
+		if ($this->aauth->is_member(6) == 1) {
+			$this->db->where('nama', get_user_data('full_name'));
+		}
+
         return $this;
-    }
+	}
 
 }
 

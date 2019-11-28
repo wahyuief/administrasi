@@ -203,7 +203,7 @@
             $('.message').printMessage({message : res.message});
             $('.message').fadeIn();
             $('.data_file_uuid').val('');
-    
+            window.location.href = location.href;
           } else {
             $('.message').printMessage({message : res.message, type : 'warning'});
           }

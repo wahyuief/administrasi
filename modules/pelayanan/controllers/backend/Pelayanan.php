@@ -27,11 +27,13 @@ class Pelayanan extends Admin
 	public function index($offset = 0)
 	{
 		$this->is_allowed('pelayanan_list');
-		$check_data = db_get_data('penduduk', ['nik'=>get_user_data('username')]);
-		$check_arsip = db_get_data('arsip', ['nama'=>get_user_data('full_name')]);
-		if (empty($check_data) || empty($check_arsip)) {
-			echo '<script>alert("Mohon lengkapi data anda terlebih dahulu sebelum melakukan pengajuan!");location.replace("user/profile")</script>';
-			exit;
+		if ($this->aauth->is_member(6) == 1) {
+			$check_data = db_get_data('penduduk', ['nik'=>get_user_data('username')]);
+			$check_arsip = db_get_data('arsip', ['nama'=>get_user_data('full_name')]);
+			if (empty($check_data) || empty($check_arsip)) {
+				echo '<script>alert("Mohon lengkapi data anda terlebih dahulu sebelum melakukan pengajuan!");location.replace("user/profile")</script>';
+				exit;
+			}
 		}
 
 		$filter = $this->input->get('q');
@@ -89,13 +91,21 @@ class Pelayanan extends Admin
 			$save_data = [
 				'nama' => $this->input->post('nama'),
 				'tipe' => $this->input->post('tipe'),
+				'keterangan' => $this->input->post('keterangan'),
 			];
 
+			$users = db_get_all_data('aauth_users', ['rt'=>get_user_data('rt'), 'rw'=>get_user_data('rw')]);
+			$ketua_rt = 0;
+			foreach ($users as $user) {
+				if ($this->aauth->is_member(2, $user->id)) {
+					$ketua_rt = $user->id;
+				}
+			}
 			
 			$save_pelayanan = $this->model_pelayanan->store($save_data);
 
 			if ($save_pelayanan) {
-				$this->aauth->send_pms(get_user_data('id'), 2, "PERMINTAAN-".$save_pelayanan, "Terdapat Permintaan ".$save_data['tipe']." Untuk ".$save_data['nama']." Dari RT ".get_user_data('rt'));
+				$this->aauth->send_pms(get_user_data('id'), $ketua_rt, "LAYANAN-".$save_pelayanan, "Terdapat Permintaan ".$save_data['tipe']." Untuk ".$save_data['nama']." Dari RT ".get_user_data('rt').", RW ".get_user_data('rw'));
 				if ($this->input->post('save_type') == 'stay') {
 					$this->data['success'] = true;
 					$this->data['id'] 	   = $save_pelayanan;

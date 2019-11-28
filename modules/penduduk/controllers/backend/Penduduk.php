@@ -281,7 +281,7 @@ class Penduduk extends Admin
 	*
 	* @var $id String
 	*/
-	public function edit_data_pribadi_save($id)
+	public function edit_data_pribadi_save()
 	{
 		if (!$this->is_allowed('edit_data_pribadi', false)) {
 			echo json_encode([
@@ -290,6 +290,9 @@ class Penduduk extends Admin
 				]);
 			exit;
 		}
+
+		$nik = $this->input->get('nik');
+		$id = db_get_data('penduduk', ['nik'=>$nik])->id;
 		
 		$this->form_validation->set_rules('nkk', 'Nomor Kartu Keluarga', 'trim|required|callback_valid_number');
 		$this->form_validation->set_rules('nik', 'NIK', 'trim|required');

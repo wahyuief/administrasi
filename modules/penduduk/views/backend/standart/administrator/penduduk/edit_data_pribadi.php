@@ -52,7 +52,13 @@
                             <h5 class="widget-user-desc">Edit Data Pribadi</h5>
                             <hr>
                         </div>
-                        <?= form_open(base_url('administrator/penduduk/edit_data_pribadi_save/'.$this->uri->segment(4)), [
+                        <?php
+                        if (empty(db_get_data('penduduk', ['nik'=>get_user_data('username')]))) {
+                            $target = base_url('administrator/penduduk/add_save');
+                        } else {
+                            $target = base_url('administrator/penduduk/edit_data_pribadi_save?nik='.get_user_data('username'));
+                        }
+                        echo form_open($target, [
                             'name'    => 'form_penduduk', 
                             'class'   => 'form-horizontal', 
                             'id'      => 'form_penduduk', 
@@ -74,7 +80,7 @@
                             <i class="required">*</i>
                             </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="nik" id="nik" placeholder="Nomor Induk Keluarga" value="<?= set_value('nik', $penduduk->nik); ?>">
+                                <input type="text" class="form-control" name="nik" id="nik" placeholder="Nomor Induk Keluarga" value="<?= (isset($penduduk->nik) ? $penduduk->nik : get_user_data('username')); ?>" readonly>
                                 <small class="info help-block">
                                 </small>
                             </div>
@@ -86,7 +92,7 @@
                             <i class="required">*</i>
                             </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="nama_lengkap" id="nama_lengkap" placeholder="Nama Lengkap" value="<?= set_value('nama_lengkap', $penduduk->nama_lengkap); ?>">
+                                <input type="text" class="form-control" name="nama_lengkap" id="nama_lengkap" placeholder="Nama Lengkap" value="<?= (isset($penduduk->nama_lengkap) ? $penduduk->nama_lengkap : get_user_data('full_name')); ?>" readonly>
                                 <small class="info help-block">
                                 </small>
                             </div>
@@ -284,7 +290,7 @@
                             <i class="required">*</i>
                             </label>
                             <div class="col-sm-8">
-                                <input type="number" class="form-control" name="rt" id="rt" placeholder="RT Berapa" value="<?= set_value('rt', $penduduk->rt); ?>">
+                                <input type="number" class="form-control" name="rt" id="rt" placeholder="RT Berapa" value="<?= (isset($penduduk->rt) ? $penduduk->rt : get_user_data('rt')); ?>" readonly>
                                 <small class="info help-block">
                                 </small>
                             </div>
@@ -295,7 +301,7 @@
                             <i class="required">*</i>
                             </label>
                             <div class="col-sm-8">
-                                <input type="number" class="form-control" name="rw" id="rw" placeholder="RW Berapa" value="<?= set_value('rw', $penduduk->rw); ?>">
+                                <input type="number" class="form-control" name="rw" id="rw" placeholder="RW Berapa" value="<?= (isset($penduduk->rw) ? $penduduk->rw : get_user_data('rw')); ?>" readonly>
                                 <small class="info help-block">
                                 </small>
                             </div>
@@ -306,9 +312,6 @@
                             <button class="btn btn-flat btn-primary btn_save btn_action" id="btn_save" data-stype='stay' title="<?= cclang('save_button'); ?> (Ctrl+s)">
                             <i class="fa fa-save" ></i> <?= cclang('save_button'); ?>
                             </button>
-                            <a class="btn btn-flat btn-info btn_save btn_action btn_save_back" id="btn_save" data-stype='back' title="<?= cclang('save_and_go_the_list_button'); ?> (Ctrl+d)">
-                            <i class="ion ion-ios-list-outline" ></i> <?= cclang('save_and_go_the_list_button'); ?>
-                            </a>
                             <a class="btn btn-flat btn-default btn_action" id="btn_cancel" title="<?= cclang('cancel_button'); ?> (Ctrl+x)">
                             <i class="fa fa-undo" ></i> <?= cclang('cancel_button'); ?>
                             </a>
@@ -346,7 +349,7 @@
           },
           function(isConfirm){
             if (isConfirm) {
-              window.location.href = BASE_URL + 'administrator/penduduk';
+              window.location.href = BASE_URL + 'administrator/user/profile';
             }
           });
     
@@ -380,7 +383,7 @@
             $('.message').printMessage({message : res.message});
             $('.message').fadeIn();
             $('.data_file_uuid').val('');
-    
+            window.location.href = location.href;
           } else {
             $('.message').printMessage({message : res.message, type : 'warning'});
           }
