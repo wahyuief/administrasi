@@ -347,7 +347,7 @@ class User extends Admin
 	*
 	* @var $id String
 	*/
-	public function edit_profile_save($id)
+	public function edit_profile_save()
 	{
 		if (!$this->is_allowed('user_update_profile', false)) {
 			return $this->response([
@@ -355,6 +355,8 @@ class User extends Admin
 				'message' => cclang('sorry_you_do_not_have_permission_to_access')
 				]);
 		}
+
+		$id = get_user_data('id');
 
 		$this->form_validation->set_rules('username', 'Username', 'trim|required');
 		$this->form_validation->set_rules('full_name', 'Full Name', 'trim|required');
