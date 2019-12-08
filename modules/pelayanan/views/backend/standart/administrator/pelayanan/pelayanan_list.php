@@ -53,8 +53,9 @@ jQuery(document).ready(domo);
                   <div class="widget-user-header ">
                      <div class="row pull-right">
                         <?php is_allowed('pelayanan_add', function(){?>
+                        <?php if(!$this->aauth->is_member(4)): ?>
                         <a class="btn btn-flat btn-success btn_add_new" id="btn_add_new" title="<?= cclang('add_new_button', ['Pelayanan']); ?>  (Ctrl+a)" href="<?=  site_url('administrator/pelayanan/add'); ?>"><i class="fa fa-plus-square-o" ></i> <?= cclang('add_new_button', ['Pelayanan']); ?></a>
-                        <?php }) ?>
+                        <?php endif;}) ?>
                         <?php is_allowed('pelayanan_export', function(){?>
                         <a class="btn btn-flat btn-success" title="<?= cclang('export'); ?> Pelayanan" href="<?= site_url('administrator/pelayanan/export'); ?>"><i class="fa fa-file-excel-o" ></i> <?= cclang('export'); ?> XLS</a>
                         <?php }) ?>
