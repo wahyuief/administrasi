@@ -27,15 +27,20 @@ class Notifications extends Admin
 		$field 	= $this->input->get('f');
 
 		if ($this->uri->segment(4) == 'read') {
-			$this->db->where('date_read !=', '');
+			$this->db->where('date_read !=', NULL);
 		} else if ($this->uri->segment(4) == 'unread') {
-			$this->db->where('date_read', '');
+			$this->db->where('date_read', NULL);
 		}
 
 		$this->data['content_title'] = "Notifications";
 		$this->data['content_sub_title'] = "Please check your new notifications.";
 		$this->data['content_page'] = 'backend/standart/administrator/notifications/notifications';
 		$this->data['pms'] = $this->model_notif->get($filter, $field, $this->limit_page, $offset);
+		if ($this->uri->segment(4) == 'read') {
+			$this->db->where('date_read !=', NULL);
+		} else if ($this->uri->segment(4) == 'unread') {
+			$this->db->where('date_read', NULL);
+		}
 		$this->data['pms_counts'] = $this->model_notif->count_all($filter, $field);
 
 		$config = [
