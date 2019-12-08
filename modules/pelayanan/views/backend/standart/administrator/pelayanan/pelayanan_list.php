@@ -82,6 +82,9 @@ jQuery(document).ready(domo);
                            </th>
                            <th>Nama Pemohon</th>
                            <th>Surat Permintaan</th>
+                           <th>Persetujuan RT</th>
+                           <th>Persetujuan RW</th>
+                           <th>Persetujuan Kelurahan</th>
                            <th>Status</th>
                            <th>Tanggal</th>
                            <th>Action</th>
@@ -97,10 +100,35 @@ jQuery(document).ready(domo);
                            <td><?= _ent($pelayanan->penduduk_nama_lengkap); ?></td>
                              
                            <td><?= _ent($pelayanan->tipe_pelayanan_nama_pelayanan); ?></td>
+
+                           <td><?php if ($pelayanan->approve_rt == '0') {
+                              echo '<small class="badge btn-info">Menunggu</small>';
+                           } else if ($pelayanan->approve_rt == '1') {
+                              echo '<small class="badge btn-success">Disetujui</small>';
+                           } else {
+                              echo '<small class="badge btn-danger">Ditolak</small>';
+                           } ?></td> 
+                           <td><?php if ($pelayanan->approve_rw == '0') {
+                              echo '<small class="badge btn-info">Menunggu</small>';
+                           } else if ($pelayanan->approve_rw == '1') {
+                              echo '<small class="badge btn-success">Disetujui</small>';
+                           } else {
+                              echo '<small class="badge btn-danger">Ditolak</small>';
+                           } ?></td> 
+                           <td><?php if ($pelayanan->approve_kelurahan == '0') {
+                              echo '<small class="badge btn-info">Menunggu</small>';
+                           } else if ($pelayanan->approve_kelurahan == '1') {
+                              echo '<small class="badge btn-success">Disetujui</small>';
+                           } else {
+                              echo '<small class="badge btn-danger">Ditolak</small>';
+                           } ?></td> 
                              
                            <td><?= _ent($pelayanan->status); ?></td> 
                            <td><?= _ent($pelayanan->tanggal); ?></td> 
                            <td width="200">
+                              <?php if($this->aauth->is_member(6) && db_get_data('pelayanan', ['id'=>$pelayanan->id, 'status'=>'Kuesioner'])){?>
+                              <a href="<?= site_url('administrator/pelayanan/keusioner/' . $pelayanan->id); ?>" class="label-default"><i class="fa fa-pencil"></i> Kuesioner
+                              <?php } ?>
                               <?php is_allowed('pelayanan_view', function() use ($pelayanan){?>
                               <a href="<?= site_url('administrator/pelayanan/view/' . $pelayanan->id); ?>" class="label-default"><i class="fa fa-newspaper-o"></i> <?= cclang('view_button'); ?>
                               <?php }) ?>

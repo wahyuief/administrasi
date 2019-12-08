@@ -302,8 +302,24 @@ class User extends Admin
 	public function profile()
 	{
 		$this->is_allowed('user_profile');
+		$rt = db_get_all_data('aauth_users', ['rt'=>get_user_data('rt'), 'rw'=>get_user_data('rw')]);
+		$rw = db_get_all_data('aauth_users', ['rw'=>get_user_data('rw')]);
+		$ketua_rt = 0;
+		$ketua_rw = 0;
+		foreach ($rt as $rt) {
+			if ($this->aauth->is_member(2, $rt->id)) {
+				$ketua_rt = $rt->id;
+			}
+		}
+		foreach ($rw as $rw) {
+			if ($this->aauth->is_member(3, $rw->id)) {
+				$ketua_rw = $rw->id;
+			}
+		}
 
 		$this->data['user'] = $this->model_user->find($this->aauth->get_user()->id);
+		$this->data['ketua_rt'] = db_get_data('aauth_users', ['id'=>$ketua_rt])->full_name;
+		$this->data['ketua_rw'] = db_get_data('aauth_users', ['id'=>$ketua_rw])->full_name;
 
 		$this->template->title('User Profile');
 		$this->render('backend/standart/administrator/user/user_profile', $this->data);

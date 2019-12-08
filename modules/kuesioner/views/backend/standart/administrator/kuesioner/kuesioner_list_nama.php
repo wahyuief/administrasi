@@ -7,7 +7,7 @@ function domo(){
  
    // Binding keys
    $('*').bind('keydown', 'Ctrl+a', function assets() {
-       window.location.href = BASE_URL + '/administrator/Penduduk/add';
+       window.location.href = BASE_URL + '/administrator/Kuesioner/add';
        return false;
    });
 
@@ -33,11 +33,11 @@ jQuery(document).ready(domo);
 <!-- Content Header (Page header) -->
 <section class="content-header">
    <h1>
-      Kelola Penduduk<small><?= cclang('list_all'); ?></small>
+      Kuesioner<small><?= cclang('list_all'); ?></small>
    </h1>
    <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li class="active">Kelola Penduduk</li>
+      <li class="active">Kuesioner</li>
    </ol>
 </section>
 <!-- Main content -->
@@ -52,25 +52,25 @@ jQuery(document).ready(domo);
                   <!-- Add the bg color to the header using any of the bg-* classes -->
                   <div class="widget-user-header ">
                      <div class="row pull-right">
-                        <?php is_allowed('penduduk_add', function(){?>
-                        <a class="btn btn-flat btn-success btn_add_new" id="btn_add_new" title="<?= cclang('add_new_button', ['Data Penduduk']); ?>  (Ctrl+a)" href="<?php echo site_url('administrator/penduduk/add');echo ($this->input->get('keluarga') ? '?keluarga=' . $this->input->get('keluarga') : ''); ?>"><i class="fa fa-plus-square-o" ></i> <?= cclang('add_new_button', ['Data Penduduk']); ?></a>
+                        <?php is_allowed('kuesioner_add', function(){?>
+                        <a class="btn btn-flat btn-success btn_add_new" id="btn_add_new" title="<?= cclang('add_new_button', ['Kuesioner']); ?>  (Ctrl+a)" href="<?=  site_url('administrator/kuesioner/add'); ?>"><i class="fa fa-plus-square-o" ></i> <?= cclang('add_new_button', ['Kuesioner']); ?></a>
                         <?php }) ?>
-                        <?php is_allowed('penduduk_export', function(){?>
-                        <a class="btn btn-flat btn-success" title="<?= cclang('export'); ?> Data Penduduk" href="<?= site_url('administrator/penduduk/export'); ?>"><i class="fa fa-file-excel-o" ></i> <?= cclang('export'); ?> XLS</a>
+                        <?php is_allowed('kuesioner_export', function(){?>
+                        <a class="btn btn-flat btn-success" title="<?= cclang('export'); ?> Kuesioner" href="<?= site_url('administrator/kuesioner/export'); ?>"><i class="fa fa-file-excel-o" ></i> <?= cclang('export'); ?> XLS</a>
                         <?php }) ?>
-                        <?php is_allowed('penduduk_export', function(){?>
-                        <a class="btn btn-flat btn-success" title="<?= cclang('export'); ?> pdf Data Penduduk" href="<?= site_url('administrator/penduduk/export_pdf'); ?>"><i class="fa fa-file-pdf-o" ></i> <?= cclang('export'); ?> PDF</a>
+                        <?php is_allowed('kuesioner_export', function(){?>
+                        <a class="btn btn-flat btn-success" title="<?= cclang('export'); ?> pdf Kuesioner" href="<?= site_url('administrator/kuesioner/export_pdf'); ?>"><i class="fa fa-file-pdf-o" ></i> <?= cclang('export'); ?> PDF</a>
                         <?php }) ?>
                      </div>
                      <div class="widget-user-image">
                         <img class="img-circle" src="<?= BASE_ASSET; ?>/img/list.png" alt="User Avatar">
                      </div>
                      <!-- /.widget-user-image -->
-                     <h3 class="widget-user-username">Kelola Penduduk</h3>
-                     <h5 class="widget-user-desc"><?= cclang('list_all', ['Data Penduduk']); ?>  <i class="label bg-yellow"><?= $penduduk_counts; ?>  <?= cclang('items'); ?></i></h5>
+                     <h3 class="widget-user-username">Kuesioner</h3>
+                     <h5 class="widget-user-desc"><?= cclang('list_all', ['Kuesioner']); ?>  <i class="label bg-yellow"><?= $kuesioner_counts; ?>  <?= cclang('items'); ?></i></h5>
                   </div>
 
-                  <form name="form_penduduk" id="form_penduduk" action="<?= base_url('administrator/penduduk/index'); ?>">
+                  <form name="form_kuesioner" id="form_kuesioner" action="<?= base_url('administrator/kuesioner/index'); ?>">
                   
 
                   <div class="table-responsive"> 
@@ -80,56 +80,35 @@ jQuery(document).ready(domo);
                            <th>
                             <input type="checkbox" class="flat-red toltip" id="check_all" name="check_all" title="check all">
                            </th>
-                           <th>NIK</th>
-                           <th>Nama Lengkap</th>
-                           <th>Jenis Kelamin</th>
-                           <th>Tanggal Lahir</th>
-                           <th>Agama</th>
-                           <th>Pekerjaan</th>
-                           <th>RT Berapa</th>
-                           <th>RW Berapa</th>
-                           <th>Action</th>
+                           <th>User</th>
+                           <!-- <th>Action</th> -->
                         </tr>
                      </thead>
-                     <tbody id="tbody_penduduk">
-                     <?php foreach($penduduks as $penduduk): ?>
+                     <tbody id="tbody_kuesioner">
+                     <?php foreach($kuesioners as $kuesioner): ?>
                         <tr>
                            <td width="5">
-                              <input type="checkbox" class="flat-red check" name="id[]" value="<?= $penduduk->id; ?>">
+                              <input type="checkbox" class="flat-red check" name="id[]" value="<?= $kuesioner->id; ?>">
                            </td>
                            
-                           <td><?= _ent($penduduk->aauth_users_username); ?></td>
-                             
-                           <td><?= _ent($penduduk->nama_lengkap); ?></td> 
-                           <td><?= _ent($penduduk->jenis_kelamin); ?></td> 
-                           <td><?= _ent($penduduk->tanggal_lahir); ?></td> 
-                           <td><?= _ent($penduduk->agama_nama); ?></td>
-                             
-                           <td><?= _ent($penduduk->pekerjaan_nama); ?></td>
-                             
-                           <td><?= _ent($penduduk->rt); ?></td> 
-                           <td><?= _ent($penduduk->rw); ?></td> 
-                           <td width="200">
-                              <a href="<?= site_url('administrator/arsip?nama=' . $penduduk->nama_lengkap); ?>" class="label-default"><i class="fa fa-list"></i> Arsip
-                              <?php if($penduduk->status_keluarga === 'Kepala Keluarga'){ ?>
-                              <a href="<?= site_url('administrator/penduduk?keluarga=' . $penduduk->nama_lengkap); ?>" class="label-default"><i class="fa fa-user"></i> Keluarga
-                              <?php } ?>
-                              <?php is_allowed('penduduk_view', function() use ($penduduk){?>
-                              <a href="<?= site_url('administrator/penduduk/view/' . $penduduk->id); ?>" class="label-default"><i class="fa fa-newspaper-o"></i> <?= cclang('view_button'); ?>
+                           <td><a href="<?php echo BASE_URL . 'administrator/kuesioner/nama?user='.$kuesioner->user ?>"><?= db_get_data('aauth_users', ['id'=>$kuesioner->user])->full_name; ?></a></td>
+                           <!-- <td width="200">
+                              <?php is_allowed('kuesioner_view', function() use ($kuesioner){?>
+                              <a href="<?= site_url('administrator/kuesioner/view/' . $kuesioner->id); ?>" class="label-default"><i class="fa fa-newspaper-o"></i> <?= cclang('view_button'); ?>
                               <?php }) ?>
-                              <?php is_allowed('penduduk_update', function() use ($penduduk){?>
-                              <a href="<?= site_url('administrator/penduduk/edit/' . $penduduk->id); ?>" class="label-default"><i class="fa fa-edit "></i> <?= cclang('update_button'); ?></a>
+                              <?php is_allowed('kuesioner_update', function() use ($kuesioner){?>
+                              <a href="<?= site_url('administrator/kuesioner/edit/' . $kuesioner->id); ?>" class="label-default"><i class="fa fa-edit "></i> <?= cclang('update_button'); ?></a>
                               <?php }) ?>
-                              <?php is_allowed('penduduk_delete', function() use ($penduduk){?>
-                              <a href="javascript:void(0);" data-href="<?= site_url('administrator/penduduk/delete/' . $penduduk->id); ?>" class="label-default remove-data"><i class="fa fa-close"></i> <?= cclang('remove_button'); ?></a>
+                              <?php is_allowed('kuesioner_delete', function() use ($kuesioner){?>
+                              <a href="javascript:void(0);" data-href="<?= site_url('administrator/kuesioner/delete/' . $kuesioner->id); ?>" class="label-default remove-data"><i class="fa fa-close"></i> <?= cclang('remove_button'); ?></a>
                                <?php }) ?>
-                           </td>
+                           </td> -->
                         </tr>
                       <?php endforeach; ?>
-                      <?php if ($penduduk_counts == 0) :?>
+                      <?php if ($kuesioner_counts == 0) :?>
                          <tr>
                            <td colspan="100">
-                           Data Penduduk data is not available
+                           Kuesioner data is not available
                            </td>
                          </tr>
                       <?php endif; ?>
@@ -156,14 +135,9 @@ jQuery(document).ready(domo);
                      <div class="col-sm-3 padd-left-0 " >
                         <select type="text" class="form-control chosen chosen-select" name="f" id="field" >
                            <option value=""><?= cclang('all'); ?></option>
-                            <option <?= $this->input->get('f') == 'nik' ? 'selected' :''; ?> value="nik">Nik</option>
-                           <option <?= $this->input->get('f') == 'nama_lengkap' ? 'selected' :''; ?> value="nama_lengkap">Nama Lengkap</option>
-                           <option <?= $this->input->get('f') == 'jenis_kelamin' ? 'selected' :''; ?> value="jenis_kelamin">Jenis Kelamin</option>
-                           <option <?= $this->input->get('f') == 'tanggal_lahir' ? 'selected' :''; ?> value="tanggal_lahir">Tanggal Lahir</option>
-                           <option <?= $this->input->get('f') == 'agama' ? 'selected' :''; ?> value="agama">Agama</option>
-                           <option <?= $this->input->get('f') == 'pekerjaan' ? 'selected' :''; ?> value="pekerjaan">Pekerjaan</option>
-                           <option <?= $this->input->get('f') == 'rt' ? 'selected' :''; ?> value="rt">Rt</option>
-                           <option <?= $this->input->get('f') == 'rw' ? 'selected' :''; ?> value="rw">Rw</option>
+                            <option <?= $this->input->get('f') == 'user' ? 'selected' :''; ?> value="user">User</option>
+                           <option <?= $this->input->get('f') == 'pertanyaan' ? 'selected' :''; ?> value="pertanyaan">Pertanyaan</option>
+                           <option <?= $this->input->get('f') == 'jawaban' ? 'selected' :''; ?> value="jawaban">Jawaban</option>
                           </select>
                      </div>
                      <div class="col-sm-1 padd-left-0 ">
@@ -172,7 +146,7 @@ jQuery(document).ready(domo);
                         </button>
                      </div>
                      <div class="col-sm-1 padd-left-0 ">
-                        <a class="btn btn-default btn-flat" name="reset" id="reset" value="Apply" href="<?= base_url('administrator/penduduk');?>" title="<?= cclang('reset_filter'); ?>">
+                        <a class="btn btn-default btn-flat" name="reset" id="reset" value="Apply" href="<?= base_url('administrator/kuesioner');?>" title="<?= cclang('reset_filter'); ?>">
                         <i class="fa fa-undo"></i>
                         </a>
                      </div>
@@ -224,7 +198,7 @@ jQuery(document).ready(domo);
     $('#apply').click(function(){
 
       var bulk = $('#bulk');
-      var serialize_bulk = $('#form_penduduk').serialize();
+      var serialize_bulk = $('#form_kuesioner').serialize();
 
       if (bulk.val() == 'delete') {
          swal({
@@ -240,7 +214,7 @@ jQuery(document).ready(domo);
           },
           function(isConfirm){
             if (isConfirm) {
-               document.location.href = BASE_URL + '/administrator/penduduk/delete?' + serialize_bulk;      
+               document.location.href = BASE_URL + '/administrator/kuesioner/delete?' + serialize_bulk;      
             }
           });
 

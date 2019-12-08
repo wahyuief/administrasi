@@ -64,12 +64,7 @@
                             <i class="required">*</i>
                             </label>
                             <div class="col-sm-8">
-                                <select  class="form-control chosen chosen-select-deselect" name="nama" id="nama" data-placeholder="Select Nama" >
-                                    <option value=""></option>
-                                    <?php foreach (db_get_all_data('penduduk') as $row): ?>
-                                    <option <?=  $row->nama_lengkap ==  $pelayanan->nama ? 'selected' : ''; ?> value="<?= $row->nama_lengkap ?>"><?= $row->nama_lengkap; ?></option>
-                                    <?php endforeach; ?>  
-                                </select>
+                                <input type="text" name="nama" id="nama" value="<?= $pelayanan->nama ?>" class="form-control" readonly>
                                 <small class="info help-block">
                                 </small>
                             </div>
@@ -81,19 +76,68 @@
                             <i class="required">*</i>
                             </label>
                             <div class="col-sm-8">
-                                <select  class="form-control chosen chosen-select-deselect" name="tipe" id="tipe" data-placeholder="Select Tipe" >
-                                    <option value=""></option>
-                                    <?php foreach (db_get_all_data('tipe_pelayanan') as $row): ?>
-                                    <option <?=  $row->nama_pelayanan ==  $pelayanan->tipe ? 'selected' : ''; ?> value="<?= $row->nama_pelayanan ?>"><?= $row->nama_pelayanan; ?></option>
-                                    <?php endforeach; ?>  
-                                </select>
+                                <input type="text" name="tipe" id="tipe" value="<?= $pelayanan->tipe ?>" class="form-control" readonly>
                                 <small class="info help-block">
                                 </small>
                             </div>
                         </div>
 
-                                                 
-                                                <div class="form-group ">
+                        <?php if($this->aauth->is_member(2) && db_get_data('pelayanan', ['id'=>$pelayanan->id, 'approve_rt'=>'0'])): ?>
+                        <div class="form-group ">
+                            <label for="approve_rt" class="col-sm-2 control-label">Persetujuan RT 
+                            <i class="required">*</i>
+                            </label>
+                            <div class="col-sm-8">
+                                <select  class="form-control chosen chosen-select" name="approve_rt" id="approve_rt" data-placeholder="Select approve_rt" >
+                                    <option value=""></option>
+                                    <option <?= $pelayanan->approve_rt == "0" ? 'selected' :''; ?> value="0">Menunggu</option>
+                                    <option <?= $pelayanan->approve_rt == "1" ? 'selected' :''; ?> value="1">Disetujui</option>
+                                    <option <?= $pelayanan->approve_rt == "2" ? 'selected' :''; ?> value="2">Ditolak</option>
+                                </select>
+                                <small class="info help-block">
+                                </small>
+                            </div>
+                        </div>
+                        <?php endif; ?>
+
+                        <?php if($this->aauth->is_member(3) && db_get_data('pelayanan', ['id'=>$pelayanan->id, 'approve_rt'=>'1', 'approve_rw'=>'0'])): ?>
+                        <div class="form-group ">
+                            <label for="approve_rw" class="col-sm-2 control-label">Persetujuan RW 
+                            <i class="required">*</i>
+                            </label>
+                            <div class="col-sm-8">
+                                <select  class="form-control chosen chosen-select" name="approve_rw" id="approve_rw" data-placeholder="Select approve_rw" >
+                                    <option value=""></option>
+                                    <option <?= $pelayanan->approve_rw == "0" ? 'selected' :''; ?> value="0">Menunggu</option>
+                                    <option <?= $pelayanan->approve_rw == "1" ? 'selected' :''; ?> value="1">Disetujui</option>
+                                    <option <?= $pelayanan->approve_rw == "2" ? 'selected' :''; ?> value="2">Ditolak</option>
+                                </select>
+                                <small class="info help-block">
+                                </small>
+                            </div>
+                        </div>
+                        <?php endif; ?>
+
+                        <?php if($this->aauth->is_member(1) || $this->aauth->is_member(4) && db_get_data('pelayanan', ['id'=>$pelayanan->id, 'approve_rt'=>'1', 'approve_rw'=>'1'])): ?>
+                        <div class="form-group ">
+                            <label for="approve_kelurahan" class="col-sm-2 control-label">Persetujuan Kelurahan 
+                            <i class="required">*</i>
+                            </label>
+                            <div class="col-sm-8">
+                                <select  class="form-control chosen chosen-select" name="approve_kelurahan" id="approve_kelurahan" data-placeholder="Select approve_kelurahan" >
+                                    <option value=""></option>
+                                    <option <?= $pelayanan->approve_kelurahan == "0" ? 'selected' :''; ?> value="0">Menunggu</option>
+                                    <option <?= $pelayanan->approve_kelurahan == "1" ? 'selected' :''; ?> value="1">Disetujui</option>
+                                    <option <?= $pelayanan->approve_kelurahan == "2" ? 'selected' :''; ?> value="2">Ditolak</option>
+                                </select>
+                                <small class="info help-block">
+                                </small>
+                            </div>
+                        </div>
+                        <?php endif; ?>
+
+                        <?php if($this->aauth->is_member(1) || $this->aauth->is_member(4) && db_get_data('pelayanan', ['id'=>$pelayanan->id, 'approve_rt'=>'1', 'approve_rw'=>'1'])){ ?>
+                        <div class="form-group ">
                             <label for="status" class="col-sm-2 control-label">Status 
                             <i class="required">*</i>
                             </label>
@@ -102,12 +146,25 @@
                                     <option value=""></option>
                                     <option <?= $pelayanan->status == "Menunggu" ? 'selected' :''; ?> value="Menunggu">Menunggu</option>
                                     <option <?= $pelayanan->status == "Proses" ? 'selected' :''; ?> value="Proses">Proses</option>
+                                    <option <?= $pelayanan->status == "Kuesioner" ? 'selected' :''; ?> value="Kuesioner">Kuesioner</option>
                                     <option <?= $pelayanan->status == "Selesai" ? 'selected' :''; ?> value="Selesai">Selesai</option>
                                     </select>
                                 <small class="info help-block">
                                 </small>
                             </div>
                         </div>
+                        <?php }else{ ?>
+                        <div class="form-group ">
+                            <label for="status" class="col-sm-2 control-label">Status
+                            <i class="required">*</i>
+                            </label>
+                            <div class="col-sm-8">
+                                <input type="text" name="status" id="status" value="<?= $pelayanan->status ?>" class="form-control" readonly>
+                                <small class="info help-block">
+                                </small>
+                            </div>
+                        </div>
+                        <?php } ?>
                                                 
                         <div class="message"></div>
                         <div class="row-fluid col-md-7">

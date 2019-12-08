@@ -179,8 +179,17 @@
     <section class="sidebar" style="padding-top:0% !important">
 
       <ul class="sidebar-menu  sidebar-admin tree"  data-widget="tree">
-
+        <?php echo ($this->aauth->is_member(6) ? '<li class=" "> 
+										        	<a href="'.BASE_URL . "administrator/user/profile".'"><i class="fa fa-user text-yellow"></i> <span>Profile</span>
+									            <span class="pull-right-container"></i>
+									            </span>
+									          </a></li>' : '') ?>
         <?= display_menu_admin(0, 1); ?>
+        <?php echo ($this->aauth->is_member(2) ? '<li class=" "> 
+										        	<a href="'.BASE_URL . "administrator/user/add".'"><i class="fa fa-user text-yellow"></i> <span>Pendaftaran NIK</span>
+									            <span class="pull-right-container"></i>
+									            </span>
+									          </a></li>' : '') ?>
 
       </ul>
     </section>

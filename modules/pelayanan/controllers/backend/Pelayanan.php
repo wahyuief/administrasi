@@ -173,17 +173,80 @@ class Pelayanan extends Admin
 		
 		$this->form_validation->set_rules('nama', 'Nama Pemohon', 'trim|required');
 		$this->form_validation->set_rules('tipe', 'Surat Permintaan', 'trim|required');
-		$this->form_validation->set_rules('status', 'Status', 'trim|required');
 		
 		if ($this->form_validation->run()) {
+			$approve_rt = $this->input->post('approve_rt');
+			$approve_rw = $this->input->post('approve_rw');
+			$approve_kelurahan = $this->input->post('approve_kelurahan');
+
+			$users = db_get_all_data('aauth_users', ['rw'=>get_user_data('rw')]);
+			$ketua_rw = 0;
+			foreach ($users as $user) {
+				if ($this->aauth->is_member(3, $user->id)) {
+					$ketua_rw = $user->id;
+				}
+			}
 		
 			$save_data = [
 				'nama' => $this->input->post('nama'),
 				'tipe' => $this->input->post('tipe'),
-				'status' => $this->input->post('status'),
 			];
 
-			
+			if ($approve_rt) {
+				if ($approve_rt == '0') {
+					$save_data = array(
+						'approve_rt' => '0',
+						'status' => 'Menunggu Persetujuan RT',
+					);
+				} else if ($approve_rt == '1') {
+					$this->aauth->send_pms(get_user_data('id'), $ketua_rw, 'LAYANAN-'.$id, 'Permintaan '.$save_data['tipe'].' '.$save_data['nama'].' Telah Disetujui RT');
+					$save_data = array(
+						'approve_rt' => '1',
+						'status' => 'Menunggu Persetujuan RW',
+					);
+				} else {
+					$save_data = array(
+						'approve_rt' => '2',
+						'status' => 'Ditolak Oleh RT',
+					);
+				}
+			} else if ($approve_rw) {
+				if ($approve_rw == '0') {
+					$save_data = array(
+						'approve_rw' => '0',
+						'status' => 'Menunggu Persetujuan RW',
+					);
+				} else if ($approve_rw == '1') {
+					$this->aauth->send_pms(get_user_data('id'), 4, 'LAYANAN-'.$id, 'Permintaan '.$save_data['tipe'].' '.$save_data['nama'].' Telah Disetujui RW');
+					$save_data = array(
+						'approve_rw' => '1',
+						'status' => 'Menunggu Persetujuan Kelurahan',
+					);
+				} else {
+					$save_data = array(
+						'approve_rw' => '2',
+						'status' => 'Ditolak Oleh RW',
+					);
+				}
+			} else if ($approve_kelurahan) {
+				if ($approve_kelurahan == '0') {
+					$save_data = array(
+						'approve_kelurahan' => '0',
+						'status' => $this->input->post('status'),
+					);
+				} else if ($approve_kelurahan == '1') {
+					$save_data = array(
+						'approve_kelurahan' => '1',
+						'status' => $this->input->post('status'),
+					);
+				} else {
+					$save_data = array(
+						'approve_kelurahan' => '2',
+						'status' => 'Ditolak Oleh Kelurahan',
+					);
+				}
+			}
+
 			$save_pelayanan = $this->model_pelayanan->change($id, $save_data);
 
 			if ($save_pelayanan) {

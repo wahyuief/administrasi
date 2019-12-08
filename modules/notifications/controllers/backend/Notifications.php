@@ -57,7 +57,7 @@ class Notifications extends Admin
 		$vlq_name = explode('-',$pm->title)[0];
 		$vlq_id = explode('-',$pm->title)[1];
 
-		if ($vlq_name == 'PERMINTAAN') {
+		if ($vlq_name == 'LAYANAN') {
 			redirect('administrator/pelayanan/index?f=id&q='.$vlq_id, 'refresh');
 		} else {
 			redirect('administrator/dashboard', 'refresh');

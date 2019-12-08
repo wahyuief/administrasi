@@ -78,6 +78,16 @@ jQuery(document).ready(domo);
                            <?php endforeach; ?>
                           </ul>
                         </div>
+                        <div class="">
+                          
+                          <h3 class="">Informasi</h3>
+                        </div>
+                        <div class="box-footer no-padding">
+                          <ul class="nav nav-stacked">
+                            <li>RT <span class="pull-right"><?php echo $ketua_rt; ?></span></li>
+                            <li>RW <span class="pull-right"><?php echo $ketua_rw; ?></span></li>
+                          </ul>
+                        </div>
                       </div>
                       <!-- /.widget-user -->
                     </div>
