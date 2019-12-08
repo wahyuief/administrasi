@@ -79,6 +79,14 @@ jQuery(document).ready(domo);
                            <?= _ent($pelayanan->tipe_pelayanan_nama_pelayanan); ?>
                         </div>
                     </div>
+
+                    <div class="form-group ">
+                        <label for="content" class="col-sm-2 control-label">Keterangan </label>
+
+                        <div class="col-sm-8">
+                           <?= _ent($pelayanan->keterangan); ?>
+                        </div>
+                    </div>
                                          
                     <div class="form-group ">
                         <label for="content" class="col-sm-2 control-label">Status </label>
