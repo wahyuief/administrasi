@@ -84,6 +84,63 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-md-6">
+            <div class="box box-warning">
+                <div class="box-body ">
+                    <canvas id="pieChart"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="box box-warning">
+                <div class="box-body ">
+                    <canvas id="barChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+         <div class="box box-warning">
+            <div class="box-body ">
+                <div class="table-responsive"> 
+                  <table class="table table-bordered table-striped dataTable">
+                     <thead>
+                        <tr class="">
+                           <th>Pertanyaan</th>
+                           <th>Sangat Puas</th>
+                           <th>Puas</th>
+                           <th>Cukup Puas</th>
+                           <th>Tidak Puas</th>
+                           <th>Sangat Tidak Puas</th>
+                        </tr>
+                     </thead>
+                     <tbody id="tbody_kuesioner_pertanyaan">
+                     <?php foreach(db_get_all_data('kuesioner_pertanyaan') as $kuesioner_pertanyaan): ?>
+                        <tr>
+                           <td><?= _ent($kuesioner_pertanyaan->pertanyaan); ?></td>
+                           <td align="center"><?php echo count(db_get_data('kuesioner', ['pertanyaan'=>$kuesioner_pertanyaan->id, 'jawaban'=>'Sangat Puas'])); ?></td>
+                           <td align="center"><?php echo count(db_get_data('kuesioner', ['pertanyaan'=>$kuesioner_pertanyaan->id, 'jawaban'=>'Puas'])); ?></td>
+                           <td align="center"><?php echo count(db_get_data('kuesioner', ['pertanyaan'=>$kuesioner_pertanyaan->id, 'jawaban'=>'Cukup Puas'])); ?></td>
+                           <td align="center"><?php echo count(db_get_data('kuesioner', ['pertanyaan'=>$kuesioner_pertanyaan->id, 'jawaban'=>'Tidak Puas'])); ?></td>
+                           <td align="center"><?php echo count(db_get_data('kuesioner', ['pertanyaan'=>$kuesioner_pertanyaan->id, 'jawaban'=>'Sangat Tidak Puas'])); ?></td>
+                        </tr>
+                      <?php endforeach; ?>
+                      <?php if ($kuesioner_pertanyaan_counts == 0) :?>
+                         <tr>
+                           <td colspan="100">
+                           Kuesioner Pertanyaan data is not available
+                           </td>
+                         </tr>
+                      <?php endif; ?>
+                     </tbody>
+                  </table>
+                </div>
+            </div>
+            <!--/box body -->
+         </div>
+         <!--/box -->
+      </div>
     </div>
   
       <!-- /.row -->
@@ -91,3 +148,74 @@
 
 </section>
 <!-- /.content -->
+<script>
+var ctx = document.getElementById("pieChart").getContext("2d");
+var data = {
+labels: ['Sangat Puas', 'Puas', 'Cukup Puas', 'Tidak Puas', 'Sangat Tidak Puas'],
+datasets: [{
+    label: "Statistik Kuesioner",
+    data: [
+        <?php echo count(db_get_data('kuesioner', ['jawaban'=>'Sangat Puas'])); ?>,
+        <?php echo count(db_get_data('kuesioner', ['jawaban'=>'Puas'])); ?>,
+        <?php echo count(db_get_data('kuesioner', ['jawaban'=>'Cukup Puas'])); ?>,
+        <?php echo count(db_get_data('kuesioner', ['jawaban'=>'Tidak Puas'])); ?>,
+        <?php echo count(db_get_data('kuesioner', ['jawaban'=>'Sangat Tidak Puas'])); ?>],
+    backgroundColor: [
+    "rgb(153, 102, 255)",
+    "rgb(54, 162, 235)",
+    "rgb(75, 192, 192)",
+    "rgb(255, 205, 86)",
+    "rgb(255, 99, 132)",
+    ]
+}]
+};
+
+var myBarChart = new Chart(ctx, {
+type: 'pie',
+data: data,
+options: {
+responsive: true
+}
+});
+
+var ctx1 = document.getElementById("barChart").getContext("2d");
+  var myChart = new Chart(ctx1, {
+      type: 'bar',
+      data: {
+          labels: ['Sangat Puas', 'Puas', 'Cukup Puas', 'Tidak Puas', 'Sangat Tidak Puas'],
+          datasets: [{
+              label: 'Statistik Kuesioner',
+              data: [
+                <?php echo count(db_get_data('kuesioner', ['jawaban'=>'Sangat Puas'])); ?>,
+                <?php echo count(db_get_data('kuesioner', ['jawaban'=>'Puas'])); ?>,
+                <?php echo count(db_get_data('kuesioner', ['jawaban'=>'Cukup Puas'])); ?>,
+                <?php echo count(db_get_data('kuesioner', ['jawaban'=>'Tidak Puas'])); ?>,
+                <?php echo count(db_get_data('kuesioner', ['jawaban'=>'Sangat Tidak Puas'])); ?>],
+              backgroundColor: [
+                "rgb(153, 102, 255)",
+                "rgb(54, 162, 235)",
+                "rgb(75, 192, 192)",
+                "rgb(255, 205, 86)",
+                "rgb(255, 99, 132)",
+              ],
+              borderColor: [
+                "rgb(153, 102, 255)",
+                "rgb(54, 162, 235)",
+                "rgb(75, 192, 192)",
+                "rgb(255, 205, 86)",
+                "rgb(255, 99, 132)",
+              ],
+              borderWidth: 1
+          }]
+      },
+      options: {
+        scales: {
+          yAxes: [{
+              ticks: {
+                  beginAtZero: true
+              }
+          }]
+        }
+      }
+  });
+</script>

@@ -26,6 +26,7 @@
   <link rel="stylesheet" href="<?= BASE_ASSET; ?>/toastr/build/toastr.css">
   <link rel="stylesheet" href="<?= BASE_ASSET; ?>/fancy-box/source/jquery.fancybox.css?v=2.1.5" media="screen" />
   <link rel="stylesheet" href="<?= BASE_ASSET; ?>/chosen/chosen.css">
+  <link rel="stylesheet" href="<?= BASE_ASSET; ?>chartjs/Chart.min.css">
   <link rel="stylesheet" href="<?= BASE_ASSET; ?>/css/custom.css?timestamp=201803311526">
   <link rel="stylesheet" href="<?= BASE_ASSET; ?>datetimepicker/jquery.datetimepicker.css"/>
   <link rel="stylesheet" href="<?= BASE_ASSET; ?>js-scroll/style/jquery.jscrollpane.css" rel="stylesheet" media="all" />
@@ -51,6 +52,7 @@
   <script src="<?= BASE_ASSET; ?>/datetimepicker/build/jquery.datetimepicker.full.js"></script>
   <script src="<?= BASE_ASSET; ?>/editor/dist/js/medium-editor.js"></script>
   <script src="<?= BASE_ASSET; ?>js/cc-extension.js"></script>
+  <script src="<?= BASE_ASSET; ?>chartjs/Chart.min.js"></script>
   <script src="<?= BASE_ASSET; ?>/js/cc-page-element.js"></script>
   <script>
     var BASE_URL = "<?= base_url(); ?>";

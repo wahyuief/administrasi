@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 08, 2019 at 06:36 AM
+-- Generation Time: Dec 08, 2019 at 12:59 PM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.2.24
 
@@ -212,7 +212,24 @@ INSERT INTO `aauth_perms` (`id`, `name`, `definition`) VALUES
 (124, 'kelurahan_list', ''),
 (125, 'edit_data_pribadi', ''),
 (126, 'edit_arsip_pribadi', ''),
-(127, 'menu_kelola_penduduk', '');
+(127, 'menu_kelola_penduduk', ''),
+(128, 'kuesioner_tipe_add', ''),
+(129, 'kuesioner_tipe_update', ''),
+(130, 'kuesioner_tipe_view', ''),
+(131, 'kuesioner_tipe_delete', ''),
+(132, 'kuesioner_tipe_list', ''),
+(138, 'kuesioner_pertanyaan_add', ''),
+(139, 'kuesioner_pertanyaan_update', ''),
+(140, 'kuesioner_pertanyaan_view', ''),
+(141, 'kuesioner_pertanyaan_delete', ''),
+(142, 'kuesioner_pertanyaan_list', ''),
+(143, 'kuesioner_add', ''),
+(144, 'kuesioner_update', ''),
+(145, 'kuesioner_view', ''),
+(146, 'kuesioner_delete', ''),
+(147, 'kuesioner_list', ''),
+(148, 'menu_kuesioner', ''),
+(149, 'pelayanan_export', '');
 
 -- --------------------------------------------------------
 
@@ -231,47 +248,6 @@ CREATE TABLE `aauth_perm_to_group` (
 
 INSERT INTO `aauth_perm_to_group` (`perm_id`, `group_id`) VALUES
 (111, 0),
-(1, 4),
-(94, 4),
-(104, 4),
-(111, 4),
-(112, 4),
-(113, 4),
-(20, 4),
-(22, 4),
-(85, 4),
-(89, 4),
-(90, 4),
-(91, 4),
-(92, 4),
-(93, 4),
-(95, 4),
-(98, 4),
-(99, 4),
-(100, 4),
-(101, 4),
-(102, 4),
-(105, 4),
-(106, 4),
-(107, 4),
-(108, 4),
-(109, 4),
-(114, 4),
-(115, 4),
-(116, 4),
-(117, 4),
-(118, 4),
-(111, 6),
-(20, 6),
-(22, 6),
-(98, 6),
-(99, 6),
-(101, 6),
-(114, 6),
-(116, 6),
-(118, 6),
-(125, 6),
-(126, 6),
 (1, 3),
 (94, 3),
 (104, 3),
@@ -324,7 +300,51 @@ INSERT INTO `aauth_perm_to_group` (`perm_id`, `group_id`) VALUES
 (117, 2),
 (118, 2),
 (125, 2),
-(126, 2);
+(126, 2),
+(148, 1),
+(111, 6),
+(20, 6),
+(22, 6),
+(89, 6),
+(98, 6),
+(99, 6),
+(101, 6),
+(114, 6),
+(118, 6),
+(125, 6),
+(126, 6),
+(1, 4),
+(94, 4),
+(104, 4),
+(111, 4),
+(112, 4),
+(113, 4),
+(148, 4),
+(20, 4),
+(22, 4),
+(85, 4),
+(89, 4),
+(90, 4),
+(91, 4),
+(92, 4),
+(93, 4),
+(95, 4),
+(98, 4),
+(99, 4),
+(100, 4),
+(101, 4),
+(102, 4),
+(105, 4),
+(106, 4),
+(107, 4),
+(108, 4),
+(109, 4),
+(114, 4),
+(115, 4),
+(116, 4),
+(117, 4),
+(118, 4),
+(149, 4);
 
 -- --------------------------------------------------------
 
@@ -361,7 +381,12 @@ CREATE TABLE `aauth_pms` (
 
 INSERT INTO `aauth_pms` (`id`, `sender_id`, `receiver_id`, `title`, `message`, `date_sent`, `date_read`, `pm_deleted_sender`, `pm_deleted_receiver`) VALUES
 (1, 6, 2, 'PERMINTAAN-1', 'Terdapat Permintaan Surat Keterangan Tidak Mampu Untuk Wahyu Arief Dari RT 6', '2019-11-28 23:05:22', NULL, NULL, NULL),
-(2, 6, 3, 'LAYANAN-2', 'Terdapat Permintaan Surat Keterangan Tidak Mampu Untuk Wahyu Arief Dari RT 6, RW 6', '2019-11-29 20:56:42', '2019-11-29 21:07:37', NULL, NULL);
+(2, 6, 3, 'LAYANAN-2', 'Terdapat Permintaan Surat Keterangan Tidak Mampu Untuk Wahyu Arief Dari RT 6, RW 6', '2019-11-29 20:56:42', '2019-12-08 13:38:36', NULL, NULL),
+(3, 6, 3, 'LAYANAN-3', 'Terdapat Permintaan Surat Pengantar Pembuatan KTP Untuk Wahyu Arief Dari RT 6, RW 6', '2019-12-08 13:53:05', '2019-12-08 13:53:21', NULL, NULL),
+(4, 3, 2, 'LAYANAN-3', 'Permintaan telah disetujui RT', '2019-12-08 14:05:32', '2019-12-08 14:05:50', NULL, NULL),
+(5, 3, 2, 'LAYANAN-3', 'Permintaan Wahyu Arief telah disetujui RT', '2019-12-08 14:07:25', NULL, NULL, NULL),
+(6, 3, 2, 'LAYANAN-3', 'Permintaan Surat Pengantar Pembuatan KTP Wahyu Arief Telah Disetujui RT', '2019-12-08 14:08:51', '2019-12-08 14:09:51', NULL, NULL),
+(7, 2, 4, 'LAYANAN-3', 'Permintaan Surat Pengantar Pembuatan KTP Wahyu Arief Telah Disetujui RW', '2019-12-08 14:09:57', '2019-12-08 14:10:21', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -409,12 +434,11 @@ CREATE TABLE `aauth_users` (
 --
 
 INSERT INTO `aauth_users` (`id`, `email`, `oauth_uid`, `oauth_provider`, `pass`, `username`, `full_name`, `avatar`, `rt`, `rw`, `banned`, `last_login`, `last_activity`, `date_created`, `forgot_exp`, `remember_time`, `remember_exp`, `verification_code`, `top_secret`, `ip_address`) VALUES
-(1, 'admin@admin.com', NULL, NULL, '8b235284a9f7a82364468e52dab386f33844421b481113794e0b4d634c86d0f3', 'admin', 'Administrator', '', 6, 6, 0, '2019-12-08 12:24:22', '2019-12-08 12:24:22', '2019-07-28 05:19:02', NULL, NULL, NULL, NULL, NULL, '::1'),
-(2, 'rw1@gmail.com', NULL, NULL, '52b3a93aac36bd14b3a1c9e7118f79981d14d39c6fd5118884d7544e58232a8d', 'rw6', 'Ketua RW 6', 'default.png', 1, 6, 0, '2019-11-29 00:02:26', '2019-11-29 00:02:26', '2019-11-12 00:31:51', NULL, NULL, NULL, NULL, NULL, '::1'),
-(3, 'rt1@gmail.com', NULL, NULL, 'd4cf951e9f92ee7b6243f1d7958442323d1f6e4ce341e0a1cdf34da8c40108b8', 'rt6', 'Ketua RT 6', 'default.png', 6, 6, 0, '2019-12-08 12:27:24', '2019-12-08 12:27:24', '2019-11-12 00:32:19', NULL, NULL, NULL, NULL, NULL, '::1'),
-(4, 'kelurahan@gmail.com', NULL, NULL, '8900fb4d8eb2120c1df4154db296afaf0beb8a63c4204eaf268f0f63bf16d5f0', 'kelurahan', 'Pak Lurah', 'default.png', 1, 1, 0, NULL, NULL, '2019-11-27 20:06:02', NULL, NULL, NULL, NULL, NULL, NULL),
-(5, 'kecamatan@gmail.com', NULL, NULL, 'd990a5cc38c8de44e1ef0085f1277e3706db2c114e9a20e4bac9b6b7c885251f', 'kecamatan', 'Pak Camat', 'default.png', 1, 1, 0, NULL, NULL, '2019-11-27 20:06:28', NULL, NULL, NULL, NULL, NULL, NULL),
-(6, 'warga@gmail.com', NULL, NULL, '0b5758740f60a30779ab82ac69eeae59d3672814868cb2c118588e2c86c76cab', '327507', 'Wahyu Arief', 'default.png', 6, 6, 0, '2019-12-08 12:26:44', '2019-12-08 12:26:44', '2019-11-27 20:07:50', NULL, NULL, NULL, NULL, NULL, '::1'),
+(1, 'admin@admin.com', NULL, NULL, '8b235284a9f7a82364468e52dab386f33844421b481113794e0b4d634c86d0f3', 'admin', 'Administrator', '', 6, 6, 0, '2019-12-08 18:02:30', '2019-12-08 18:02:30', '2019-07-28 05:19:02', NULL, NULL, NULL, NULL, NULL, '::1'),
+(2, 'rw1@gmail.com', NULL, NULL, '52b3a93aac36bd14b3a1c9e7118f79981d14d39c6fd5118884d7544e58232a8d', 'rw6', 'Ketua RW 6', 'default.png', 1, 6, 0, '2019-12-08 13:53:50', '2019-12-08 13:53:50', '2019-11-12 00:31:51', NULL, NULL, NULL, NULL, NULL, '::1'),
+(3, 'rt1@gmail.com', NULL, NULL, 'd4cf951e9f92ee7b6243f1d7958442323d1f6e4ce341e0a1cdf34da8c40108b8', 'rt6', 'Ketua RT 6', 'default.png', 6, 6, 0, '2019-12-08 18:31:57', '2019-12-08 18:31:57', '2019-11-12 00:32:19', NULL, NULL, NULL, NULL, NULL, '::1'),
+(4, 'kelurahan@gmail.com', NULL, NULL, '8900fb4d8eb2120c1df4154db296afaf0beb8a63c4204eaf268f0f63bf16d5f0', 'kelurahan', 'Admin Lurah', 'default.png', 1, 6, 0, '2019-12-08 18:00:56', '2019-12-08 18:00:56', '2019-11-27 20:06:02', NULL, NULL, NULL, NULL, NULL, '::1'),
+(6, 'warga@gmail.com', NULL, NULL, '0b5758740f60a30779ab82ac69eeae59d3672814868cb2c118588e2c86c76cab', '327507', 'Wahyu Arief', 'default.png', 6, 6, 0, '2019-12-08 14:15:15', '2019-12-08 14:15:15', '2019-11-27 20:07:50', NULL, NULL, NULL, NULL, NULL, '::1'),
 (7, 'rt2@gmail.com', NULL, NULL, 'c82df20f8e8e72bfcb378fb0d6deec63c9f46f607403cf94788a93888cc4336a', 'rt2', 'Ketua RT 2', 'default.png', 2, 6, 0, '2019-11-29 00:52:55', '2019-11-29 00:52:55', '2019-11-29 00:34:42', NULL, NULL, NULL, NULL, NULL, '::1');
 
 -- --------------------------------------------------------
@@ -639,7 +663,10 @@ INSERT INTO `crud` (`id`, `title`, `subject`, `table_name`, `primary_key`, `page
 (2, 'Data Arsip', 'Data Arsip', 'arsip', 'id', 'yes', 'yes', 'yes'),
 (3, 'Tipe Pelayanan', 'Tipe Pelayanan', 'tipe_pelayanan', 'id', 'yes', 'yes', 'yes'),
 (4, 'Pelayanan', 'Pelayanan', 'pelayanan', 'id', 'yes', 'yes', 'yes'),
-(5, 'Kelurahan', 'Kelurahan', 'kelurahan', 'kel_id', 'yes', 'yes', 'yes');
+(5, 'Kelurahan', 'Kelurahan', 'kelurahan', 'kel_id', 'yes', 'yes', 'yes'),
+(6, 'Kuesioner Tipe', 'Kuesioner Tipe', 'kuesioner_tipe', 'id', 'yes', 'yes', 'yes'),
+(8, 'Kuesioner Pertanyaan', 'Kuesioner Pertanyaan', 'kuesioner_pertanyaan', 'id', 'yes', 'yes', 'yes'),
+(9, 'Kuesioner', 'Kuesioner', 'kuesioner', 'id', 'yes', 'yes', 'yes');
 
 -- --------------------------------------------------------
 
@@ -666,7 +693,12 @@ INSERT INTO `crud_custom_option` (`id`, `crud_field_id`, `crud_id`, `option_valu
 (14, 91, 1, 'Pria', 'Pria'),
 (15, 91, 1, 'Wanita', 'Wanita'),
 (16, 103, 1, 'Pria', 'Pria'),
-(17, 104, 1, 'Pria', 'Pria');
+(17, 104, 1, 'Pria', 'Pria'),
+(23, 120, 9, 'Sangat Puas', 'Sangat Puas'),
+(24, 120, 9, 'Puas', 'Puas'),
+(25, 120, 9, 'Cukup Puas', 'Cukup Puas'),
+(26, 120, 9, 'Tidak Puas', 'Tidak Puas'),
+(27, 120, 9, 'Sangat Tidak Puas', 'Sangat Tidak Puas');
 
 -- --------------------------------------------------------
 
@@ -727,7 +759,19 @@ INSERT INTO `crud_field` (`id`, `crud_id`, `field_name`, `field_label`, `input_t
 (101, 1, 'nama_ayah', 'Nama Ayah', 'input', '', 'yes', 'yes', 'yes', 15, '', '', ''),
 (102, 1, 'alamat_lengkap', 'Alamat Lengkap', 'textarea', '', 'yes', 'yes', 'yes', 16, '', '', ''),
 (103, 1, 'rt', 'RT Berapa', 'number', 'yes', 'yes', 'yes', 'yes', 17, '', '', ''),
-(104, 1, 'rw', 'RW Berapa', 'number', 'yes', 'yes', 'yes', 'yes', 18, '', '', '');
+(104, 1, 'rw', 'RW Berapa', 'number', 'yes', 'yes', 'yes', 'yes', 18, '', '', ''),
+(105, 6, 'id', 'id', 'number', '', '', '', 'yes', 1, '', '', ''),
+(106, 6, 'nama', 'nama', 'input', 'yes', 'yes', 'yes', 'yes', 2, '', '', ''),
+(107, 7, 'id', 'id', 'number', '', '', '', 'yes', 1, '', '', ''),
+(108, 7, 'tipe', 'Tipe', 'select', 'yes', 'yes', 'yes', 'yes', 2, 'kuesioner_tipe', 'id', 'nama'),
+(109, 7, 'pertanyaan', 'Pertanyaan', 'input', 'yes', 'yes', 'yes', 'yes', 3, '', '', ''),
+(110, 8, 'id', 'id', 'number', '', '', '', 'yes', 1, '', '', ''),
+(111, 8, 'tipe', 'Tipe', 'select', 'yes', 'yes', 'yes', 'yes', 2, 'kuesioner_tipe', 'id', 'nama'),
+(112, 8, 'pertanyaan', 'Pertanyaan', 'input', 'yes', 'yes', 'yes', 'yes', 3, '', '', ''),
+(117, 9, 'id', 'id', 'number', '', '', '', 'yes', 1, '', '', ''),
+(118, 9, 'user', 'User', 'input', 'yes', 'yes', 'yes', 'yes', 2, '', '', ''),
+(119, 9, 'pertanyaan', 'Pertanyaan', 'select', 'yes', 'yes', 'yes', 'yes', 3, 'kuesioner_pertanyaan', 'id', 'pertanyaan'),
+(120, 9, 'jawaban', 'Jawaban', 'custom_select', 'yes', 'yes', 'yes', 'yes', 4, '', '', '');
 
 -- --------------------------------------------------------
 
@@ -777,7 +821,13 @@ INSERT INTO `crud_field_validation` (`id`, `crud_field_id`, `crud_id`, `validati
 (104, 101, 1, 'required', ''),
 (105, 102, 1, 'required', ''),
 (106, 103, 1, 'required', ''),
-(107, 104, 1, 'required', '');
+(107, 104, 1, 'required', ''),
+(108, 106, 6, 'required', ''),
+(109, 108, 7, 'required', ''),
+(110, 109, 7, 'required', ''),
+(111, 111, 8, 'required', ''),
+(112, 112, 8, 'required', ''),
+(114, 120, 9, 'required', '');
 
 -- --------------------------------------------------------
 
@@ -1550,6 +1600,93 @@ INSERT INTO `kota` (`id`, `nama`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `kuesioner`
+--
+
+CREATE TABLE `kuesioner` (
+  `id` int(11) NOT NULL,
+  `user` int(11) NOT NULL,
+  `pertanyaan` int(11) NOT NULL,
+  `jawaban` enum('Sangat Puas','Puas','Cukup Puas','Tidak Puas','Sangat Tidak Puas') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `kuesioner`
+--
+
+INSERT INTO `kuesioner` (`id`, `user`, `pertanyaan`, `jawaban`) VALUES
+(1, 1, 1, 'Sangat Puas'),
+(2, 1, 2, 'Tidak Puas'),
+(3, 1, 3, 'Tidak Puas'),
+(4, 1, 4, 'Sangat Puas');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kuesioner_pertanyaan`
+--
+
+CREATE TABLE `kuesioner_pertanyaan` (
+  `id` int(11) NOT NULL,
+  `tipe` int(11) NOT NULL,
+  `pertanyaan` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `kuesioner_pertanyaan`
+--
+
+INSERT INTO `kuesioner_pertanyaan` (`id`, `tipe`, `pertanyaan`) VALUES
+(1, 1, 'Penggunaan nomor antrian pada pelayanan administrasi terpadu kelurahan'),
+(2, 1, 'Kerapihan atribut (seragam) yang dipakai petugas'),
+(3, 1, 'Penampilan petugas dalam melayani sopan dan rapi'),
+(4, 1, 'Kenyamanan ruangan pelayanan'),
+(5, 2, 'Kecermatan petugas dalam melayani masyarakat'),
+(6, 2, 'Solusi yang diberikan petugas'),
+(7, 2, 'Cara petugas berkomunikasi kepada masyarakat'),
+(8, 2, 'Penjelasan informasi mengenai persyaratan jenis pelayanan yang diberikan'),
+(9, 3, 'Apakah penyampaian informasi yang diberikan petugas jelas?'),
+(10, 3, 'Apakah respon yang dilakukan petugas baik apabila ada complain?'),
+(11, 3, 'Apakah pelayanan administrasi cepat dan tepat?'),
+(12, 4, 'Petugas mampu menjamin ketepatan waktu penerbitan dokumen?'),
+(13, 4, 'Petugas mampu menjamin kemanan dokumen?'),
+(14, 4, 'Pelayanan yang cepat bagi masyarakat'),
+(15, 4, 'Petugas memiliki pengetahuan tentang pelayanan yang diberikan'),
+(16, 5, 'Petugas mendahulukan kepentingan pelanggan secara individual'),
+(17, 5, 'Sikap petugas menghormati pelanggan yang melakukan pelayanan'),
+(18, 5, 'Petugas membantu pelanggan yang kebingungan dalam melaksanakan pelayanan'),
+(19, 5, 'Petugas memberikan perhatian kepada pelanggan yang melakukan pelayanan'),
+(20, 6, 'Apakah tampilan di dalam aplikasi ini menarik?'),
+(21, 6, 'Apakah menu yang tersedia di dalam aplikasi ini mudah dimengerti?'),
+(23, 6, 'Apakah aplikasi ini dapat efektif dan efisien pada alur pelayanan birokrasi di kelurahan Jatimulya?'),
+(24, 6, 'Apakah petugas memiliki pengetahuan tentang aplikasi ini?');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kuesioner_tipe`
+--
+
+CREATE TABLE `kuesioner_tipe` (
+  `id` int(11) NOT NULL,
+  `nama` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `kuesioner_tipe`
+--
+
+INSERT INTO `kuesioner_tipe` (`id`, `nama`) VALUES
+(1, 'Tangible (Bukti Fisik)'),
+(2, 'Reliability (Kehandalan)'),
+(3, 'Responsiveness (Daya Tanggap)'),
+(4, 'Assurance (Jaminan)'),
+(5, 'Emphaty (Empati)'),
+(6, 'Application (Aplikasi)');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `menu`
 --
 
@@ -1573,31 +1710,32 @@ CREATE TABLE `menu` (
 INSERT INTO `menu` (`id`, `label`, `type`, `icon_color`, `link`, `sort`, `parent`, `icon`, `menu_type_id`, `active`) VALUES
 (1, 'MAIN NAVIGATION', 'label', '', '{admin_url}/dashboard', 1, 0, '', 1, 0),
 (2, 'Dashboard', 'menu', 'text-yellow', '{admin_url}/dashboard', 2, 0, 'fa-dashboard', 1, 1),
-(3, 'CRUD Builder', 'menu', '', '{admin_url}/crud', 9, 0, 'fa-table', 1, 0),
-(4, 'API Builder', 'menu', '', '{admin_url}/rest', 10, 0, 'fa-code', 1, 0),
-(5, 'Page Builder', 'menu', '', '{admin_url}/page', 11, 0, 'fa-file-o', 1, 0),
-(6, 'Form Builder', 'menu', '', '{admin_url}/form', 12, 0, 'fa-newspaper-o', 1, 0),
-(7, 'Blog', 'menu', '', '{admin_url}/blog', 13, 0, 'fa-file-text-o', 1, 0),
-(8, 'Menu', 'menu', '', '{admin_url}/menu', 14, 0, 'fa-bars', 1, 0),
-(9, 'Auth', 'menu', '', '', 15, 0, 'fa-shield', 1, 0),
-(10, 'Data Pengguna', 'menu', 'text-yellow', '{admin_url}/user', 8, 0, 'fa-user', 1, 1),
-(11, 'Groups', 'menu', '', '{admin_url}/group', 16, 9, '', 1, 0),
-(12, 'Access', 'menu', '', '{admin_url}/access', 17, 9, '', 1, 0),
-(13, 'Permission', 'menu', '', '{admin_url}/permission', 18, 9, '', 1, 0),
-(14, 'API Keys', 'menu', '', '{admin_url}/keys', 19, 9, '', 1, 0),
-(15, 'Extension', 'menu', '', '{admin_url}/extension', 20, 0, 'fa-puzzle-piece', 1, 0),
-(16, 'OTHER', 'label', '', '', 21, 0, '', 1, 0),
-(17, 'Settings', 'menu', 'text-yellow', '{admin_url}/setting', 22, 0, 'fa-cogs', 1, 0),
-(18, 'Web Documentation', 'menu', 'text-blue', '{admin_url}/doc/web', 23, 0, 'fa-circle-o', 1, 0),
-(19, 'API Documentation', 'menu', 'text-yellow', '{admin_url}/doc/api', 24, 0, 'fa-circle-o', 1, 0),
+(3, 'CRUD Builder', 'menu', '', '{admin_url}/crud', 10, 0, 'fa-table', 1, 0),
+(4, 'API Builder', 'menu', '', '{admin_url}/rest', 11, 0, 'fa-code', 1, 0),
+(5, 'Page Builder', 'menu', '', '{admin_url}/page', 12, 0, 'fa-file-o', 1, 0),
+(6, 'Form Builder', 'menu', '', '{admin_url}/form', 13, 0, 'fa-newspaper-o', 1, 0),
+(7, 'Blog', 'menu', '', '{admin_url}/blog', 14, 0, 'fa-file-text-o', 1, 0),
+(8, 'Menu', 'menu', '', '{admin_url}/menu', 15, 0, 'fa-bars', 1, 0),
+(9, 'Auth', 'menu', '', '', 16, 0, 'fa-shield', 1, 0),
+(10, 'Data Pengguna', 'menu', 'text-yellow', '{admin_url}/user', 9, 0, 'fa-user', 1, 1),
+(11, 'Groups', 'menu', '', '{admin_url}/group', 17, 9, '', 1, 0),
+(12, 'Access', 'menu', '', '{admin_url}/access', 18, 9, '', 1, 0),
+(13, 'Permission', 'menu', '', '{admin_url}/permission', 19, 9, '', 1, 0),
+(14, 'API Keys', 'menu', '', '{admin_url}/keys', 20, 9, '', 1, 0),
+(15, 'Extension', 'menu', '', '{admin_url}/extension', 21, 0, 'fa-puzzle-piece', 1, 0),
+(16, 'OTHER', 'label', '', '', 22, 0, '', 1, 0),
+(17, 'Settings', 'menu', 'text-yellow', '{admin_url}/setting', 23, 0, 'fa-cogs', 1, 0),
+(18, 'Web Documentation', 'menu', 'text-blue', '{admin_url}/doc/web', 24, 0, 'fa-circle-o', 1, 0),
+(19, 'API Documentation', 'menu', 'text-yellow', '{admin_url}/doc/api', 25, 0, 'fa-circle-o', 1, 0),
 (20, 'Home', 'menu', '', '/', 1, 0, '', 2, 1),
 (21, 'Blog', 'menu', '', 'blog', 4, 0, '', 2, 1),
 (22, 'Dashboard', 'menu', '', 'administrator/dashboard', 5, 0, '', 2, 1),
-(23, 'Kelola Penduduk', 'menu', 'text-yellow', '{admin_url}/penduduk', 7, 0, 'fa-users', 1, 1),
-(25, 'Data Arsip', 'menu', 'text-yellow', '{admin_url}/arsip', 6, 0, 'fa-archive', 1, 0),
-(26, 'Tipe Pelayanan', 'menu', 'text-yellow', '{admin_url}/tipe_pelayanan', 5, 0, 'fa-list-ul', 1, 1),
-(27, 'Pelayanan', 'menu', 'text-yellow', '{admin_url}/pelayanan', 4, 0, 'fa-book', 1, 1),
-(28, 'Notifikasi', 'menu', 'text-yellow', '{admin_url}/notifications', 3, 0, 'fa-info-circle', 1, 1);
+(23, 'Kelola Penduduk', 'menu', 'text-yellow', '{admin_url}/penduduk', 8, 0, 'fa-users', 1, 1),
+(25, 'Data Arsip', 'menu', 'text-yellow', '{admin_url}/arsip', 7, 0, 'fa-archive', 1, 0),
+(26, 'Tipe Pelayanan', 'menu', 'text-yellow', '{admin_url}/tipe_pelayanan', 6, 0, 'fa-list-ul', 1, 1),
+(27, 'Pelayanan', 'menu', 'text-yellow', '{admin_url}/pelayanan', 5, 0, 'fa-book', 1, 1),
+(28, 'Notifikasi', 'menu', 'text-yellow', '{admin_url}/notifications', 3, 0, 'fa-info-circle', 1, 1),
+(29, 'Kuesioner', 'menu', 'text-yellow', '{admin_url}/kuesioner', 4, 0, 'fa-question-circle', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -1707,9 +1845,9 @@ CREATE TABLE `pelayanan` (
   `nama` varchar(64) NOT NULL,
   `tipe` varchar(64) NOT NULL,
   `keterangan` text DEFAULT NULL,
-  `approve_rt` enum('0','1') NOT NULL,
-  `approve_rw` enum('0','1') NOT NULL,
-  `approve_kelurahan` enum('0','1') NOT NULL,
+  `approve_rt` enum('0','1','2') NOT NULL,
+  `approve_rw` enum('0','1','2') NOT NULL,
+  `approve_kelurahan` enum('0','1','2') NOT NULL,
   `status` varchar(64) NOT NULL DEFAULT 'Menunggu',
   `tanggal` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -1719,8 +1857,9 @@ CREATE TABLE `pelayanan` (
 --
 
 INSERT INTO `pelayanan` (`id`, `nama`, `tipe`, `keterangan`, `approve_rt`, `approve_rw`, `approve_kelurahan`, `status`, `tanggal`) VALUES
-(1, 'Wahyu Arief', 'Surat Keterangan Tidak Mampu', '', '0', '0', '0', 'Menunggu', '2019-11-28 23:49:18'),
-(2, 'Wahyu Arief', 'Surat Keterangan Tidak Mampu', '', '0', '0', '0', 'Menunggu', '2019-11-29 20:56:42');
+(1, 'Wahyu Arief', 'Surat Keterangan Tidak Mampu', 'tes', '1', '0', '0', 'Menunggu Persetujuan RW', '2019-12-08 18:32:28'),
+(2, 'Wahyu Arief', 'Surat Keterangan Tidak Mampu', NULL, '1', '1', '1', 'Kuesioner', '2019-12-08 14:19:48'),
+(3, 'Wahyu Arief', 'Surat Pengantar Pembuatan KTP', '', '1', '1', '1', 'Menunggu', '2019-12-08 14:11:21');
 
 -- --------------------------------------------------------
 
@@ -2115,6 +2254,27 @@ ALTER TABLE `kota`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `kuesioner`
+--
+ALTER TABLE `kuesioner`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user` (`user`),
+  ADD KEY `pertanyaan` (`pertanyaan`);
+
+--
+-- Indexes for table `kuesioner_pertanyaan`
+--
+ALTER TABLE `kuesioner_pertanyaan`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `type` (`tipe`);
+
+--
+-- Indexes for table `kuesioner_tipe`
+--
+ALTER TABLE `kuesioner_tipe`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `menu`
 --
 ALTER TABLE `menu`
@@ -2218,19 +2378,19 @@ ALTER TABLE `aauth_groups`
 -- AUTO_INCREMENT for table `aauth_login_attempts`
 --
 ALTER TABLE `aauth_login_attempts`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
 -- AUTO_INCREMENT for table `aauth_perms`
 --
 ALTER TABLE `aauth_perms`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=128;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=150;
 
 --
 -- AUTO_INCREMENT for table `aauth_pms`
 --
 ALTER TABLE `aauth_pms`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `aauth_user`
@@ -2290,25 +2450,25 @@ ALTER TABLE `cc_options`
 -- AUTO_INCREMENT for table `crud`
 --
 ALTER TABLE `crud`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `crud_custom_option`
 --
 ALTER TABLE `crud_custom_option`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `crud_field`
 --
 ALTER TABLE `crud_field`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
 
 --
 -- AUTO_INCREMENT for table `crud_field_validation`
 --
 ALTER TABLE `crud_field_validation`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
 
 --
 -- AUTO_INCREMENT for table `crud_input_type`
@@ -2377,10 +2537,28 @@ ALTER TABLE `kota`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=515;
 
 --
+-- AUTO_INCREMENT for table `kuesioner`
+--
+ALTER TABLE `kuesioner`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `kuesioner_pertanyaan`
+--
+ALTER TABLE `kuesioner_pertanyaan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT for table `kuesioner_tipe`
+--
+ALTER TABLE `kuesioner_tipe`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `menu_type`
@@ -2410,7 +2588,7 @@ ALTER TABLE `pekerjaan`
 -- AUTO_INCREMENT for table `pelayanan`
 --
 ALTER TABLE `pelayanan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `pendidikan`
