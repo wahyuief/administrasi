@@ -313,7 +313,7 @@
             </a>
           </li>
           <li class=" "> 
-              <a href="http://localhost:80/kelurahan/administrator/pelayanan"><i class="fa fa-book text-yellow"></i> <span>Pelayanan</span>
+              <a href="<?= BASE_URL ?>administrator/pelayanan"><i class="fa fa-book text-yellow"></i> <span>Pelayanan</span>
               <span class="pull-right-container"></i>
               </span>
             </a>
