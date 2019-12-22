@@ -181,18 +181,144 @@
     <section class="sidebar" style="padding-top:0% !important">
 
       <ul class="sidebar-menu  sidebar-admin tree"  data-widget="tree">
-        <?php echo ($this->aauth->is_member(6) ? '<li class=" "> 
-										        	<a href="'.BASE_URL . "administrator/user/profile".'"><i class="fa fa-user text-yellow"></i> <span>Profile</span>
-									            <span class="pull-right-container"></i>
-									            </span>
-									          </a></li>' : '') ?>
-        <?= display_menu_admin(0, 1); ?>
-        <?php echo ($this->aauth->is_member(2) ? '<li class=" "> 
-										        	<a href="'.BASE_URL . "administrator/user/add".'"><i class="fa fa-user text-yellow"></i> <span>Pendaftaran NIK</span>
-									            <span class="pull-right-container"></i>
-									            </span>
-									          </a></li>' : '') ?>
-
+        <?php if ($this->aauth->is_member(1)): ?>
+          <li class="active "> 
+              <a href="<?= BASE_URL ?>administrator/dashboard"><i class="fa fa-dashboard text-yellow"></i> <span>Dashboard</span>
+              <span class="pull-right-container"></i>
+              </span>
+            </a>
+          </li>
+          <li class=" "> 
+              <a href="<?= BASE_URL ?>administrator/notifications"><i class="fa fa-info-circle text-yellow"></i> <span>Notifikasi</span>
+              <span class="pull-right-container"><span class="label label-danger label-circle"><i id="adminnotif"></i></span>
+              </span>
+            </a>
+          </li>
+          <li class=" "> 
+              <a href="<?= BASE_URL ?>administrator/kuesioner"><i class="fa fa-question-circle text-yellow"></i> <span>Kuesioner</span>
+              <span class="pull-right-container"></i>
+              </span>
+            </a>
+          </li>
+          <li class=" "> 
+              <a href="<?= BASE_URL ?>administrator/pelayanan"><i class="fa fa-book text-yellow"></i> <span>Pelayanan</span>
+              <span class="pull-right-container"></i>
+              </span>
+            </a>
+          </li>
+          <li class=" "> 
+              <a href="<?= BASE_URL ?>administrator/tipe_pelayanan"><i class="fa fa-list-ul text-yellow"></i> <span>Tipe Pelayanan</span>
+              <span class="pull-right-container"></i>
+              </span>
+            </a>
+          </li>
+          <li class=" "> 
+              <a href="<?= BASE_URL ?>administrator/penduduk"><i class="fa fa-users text-yellow"></i> <span>Kelola Penduduk</span>
+              <span class="pull-right-container"></i>
+              </span>
+            </a>
+          </li>
+          <li class=" "> 
+              <a href="<?= BASE_URL ?>administrator/user"><i class="fa fa-user text-yellow"></i> <span>Data Pengguna</span>
+              <span class="pull-right-container"></i>
+              </span>
+            </a>
+          </li> 
+        <?php elseif($this->aauth->is_member(2)): ?>        
+          <li class="active "> 
+              <a href="<?= BASE_URL ?>administrator/dashboard"><i class="fa fa-dashboard text-yellow"></i> <span>Dashboard</span>
+              <span class="pull-right-container"></i>
+              </span>
+            </a>
+          </li>
+          <li class=" "> 
+              <a href="<?= BASE_URL ?>administrator/notifications"><i class="fa fa-info-circle text-yellow"></i> <span>Notifikasi</span>
+              <span class="pull-right-container"><span class="label label-danger label-circle"><i id="rtnotif"></i></span>
+              </span>
+            </a>
+          </li>
+          <li class=" "> 
+              <a href="<?= BASE_URL ?>administrator/pelayanan"><i class="fa fa-book text-yellow"></i> <span>Pelayanan</span>
+              <span class="pull-right-container"></i>
+              </span>
+            </a>
+          </li>
+          <li class=" "> 
+              <a href="<?= BASE_URL ?>administrator/user/add"><i class="fa fa-user text-yellow"></i> <span>Pendaftaran NIK</span>
+              <span class="pull-right-container"></i>
+              </span>
+            </a>
+          </li>
+        <?php elseif($this->aauth->is_member(3)): ?>
+        <li class=" "> 
+            <a href="<?= BASE_URL ?>administrator/dashboard"><i class="fa fa-dashboard text-yellow"></i> <span>Dashboard</span>
+            <span class="pull-right-container"></i>
+            </span>
+          </a>
+        </li>
+        <li class=" "> 
+            <a href="<?= BASE_URL ?>administrator/notifications"><i class="fa fa-info-circle text-yellow"></i> <span>Notifikasi</span>
+            <span class="pull-right-container"><span class="label label-danger label-circle"><i id="rwnotif"></i></span>
+            </span>
+          </a>
+        </li>
+        <li class=" "> 
+            <a href="<?= BASE_URL ?>administrator/pelayanan"><i class="fa fa-book text-yellow"></i> <span>Pelayanan</span>
+            <span class="pull-right-container"></i>
+            </span>
+          </a>
+        </li>
+        <?php elseif($this->aauth->is_member(4)): ?>
+        <li class=" "> 
+            <a href="<?= BASE_URL ?>administrator/dashboard"><i class="fa fa-dashboard text-yellow"></i> <span>Dashboard</span>
+            <span class="pull-right-container"></i>
+            </span>
+          </a>
+        </li>
+        <li class=" "> 
+            <a href="<?= BASE_URL ?>administrator/notifications"><i class="fa fa-info-circle text-yellow"></i> <span>Notifikasi</span>
+            <span class="pull-right-container"><span class="label label-danger label-circle"><i id="lurahnotif"></i></span>
+            </span>
+          </a>
+        </li>
+        <li class=" "> 
+            <a href="<?= BASE_URL ?>administrator/kuesioner"><i class="fa fa-question-circle text-yellow"></i> <span>Kuesioner</span>
+            <span class="pull-right-container"></i>
+            </span>
+          </a>
+        </li>
+        <li class=" "> 
+            <a href="<?= BASE_URL ?>administrator/pelayanan"><i class="fa fa-book text-yellow"></i> <span>Pelayanan</span>
+            <span class="pull-right-container"></i>
+            </span>
+          </a>
+        </li>
+        <li class=" "> 
+            <a href="<?= BASE_URL ?>administrator/tipe_pelayanan"><i class="fa fa-list-ul text-yellow"></i> <span>Tipe Pelayanan</span>
+            <span class="pull-right-container"></i>
+            </span>
+          </a>
+        </li>
+        <?php elseif($this->aauth->is_member(6)): ?>
+          <li class=" "> 
+              <a href="<?= BASE_URL ?>administrator/user/profile"><i class="fa fa-user text-yellow"></i> <span>Profile</span>
+              <span class="pull-right-container"></i>
+              </span>
+            </a>
+          </li>
+          <li class=" "> 
+              <a href="<?= BASE_URL ?>administrator/notifications"><i class="fa fa-info-circle text-yellow"></i> <span>Notifikasi</span>
+              <span class="pull-right-container"><span class="label label-danger label-circle"><i id="warganotif"></i></span>
+              </span>
+            </a>
+          </li>
+          <li class=" "> 
+              <a href="http://localhost:80/kelurahan/administrator/pelayanan"><i class="fa fa-book text-yellow"></i> <span>Pelayanan</span>
+              <span class="pull-right-container"></i>
+              </span>
+            </a>
+          </li>
+        <?php endif; ?>
       </ul>
     </section>
 
@@ -243,6 +369,7 @@
 
         var BASE_URL = "<?= base_url(); ?>";
 
+        <?php if ($this->aauth->is_member(1)): ?>
         $.ajax({
             url: BASE_URL + 'administrator/auth/notif_unread',
             type: "GET",
@@ -252,11 +379,76 @@
             success: function(response) {
                 var notif = JSON.parse(response);
                 console.log(notif);
-                $('#mynotif').html(notif.notif_unread);
-                $('#mynotif').show();
+                $('#adminnotif').html(notif.notif_unread);
+                $('#adminnotif').show();
 
             }
         });
+        <?php endif; ?>
+        <?php if ($this->aauth->is_member(2)): ?>
+        $.ajax({
+            url: BASE_URL + 'administrator/auth/notif_unread',
+            type: "GET",
+            beforeSend: function(xhr){
+                // xhr.setRequestHeader('X-Api-Key', 'A1336F70C2BEF1D3C325F228A06B4447');
+            },
+            success: function(response) {
+                var notif = JSON.parse(response);
+                console.log(notif);
+                $('#rtnotif').html(notif.notif_unread);
+                $('#rtnotif').show();
+
+            }
+        });
+        <?php endif; ?>
+        <?php if ($this->aauth->is_member(3)): ?>
+        $.ajax({
+            url: BASE_URL + 'administrator/auth/notif_unread',
+            type: "GET",
+            beforeSend: function(xhr){
+                // xhr.setRequestHeader('X-Api-Key', 'A1336F70C2BEF1D3C325F228A06B4447');
+            },
+            success: function(response) {
+                var notif = JSON.parse(response);
+                console.log(notif);
+                $('#rwnotif').html(notif.notif_unread);
+                $('#rwnotif').show();
+
+            }
+        });
+        <?php endif; ?>
+        <?php if ($this->aauth->is_member(4)): ?>
+        $.ajax({
+            url: BASE_URL + 'administrator/auth/notif_unread',
+            type: "GET",
+            beforeSend: function(xhr){
+                // xhr.setRequestHeader('X-Api-Key', 'A1336F70C2BEF1D3C325F228A06B4447');
+            },
+            success: function(response) {
+                var notif = JSON.parse(response);
+                console.log(notif);
+                $('#lurahnotif').html(notif.notif_unread);
+                $('#lurahnotif').show();
+
+            }
+        });
+        <?php endif; ?>
+        <?php if ($this->aauth->is_member(6)): ?>
+        $.ajax({
+            url: BASE_URL + 'administrator/auth/notif_unread',
+            type: "GET",
+            beforeSend: function(xhr){
+                // xhr.setRequestHeader('X-Api-Key', 'A1336F70C2BEF1D3C325F228A06B4447');
+            },
+            success: function(response) {
+                var notif = JSON.parse(response);
+                console.log(notif);
+                $('#warganotif').html(notif.notif_unread);
+                $('#warganotif').show();
+
+            }
+        });
+        <?php endif; ?>
     });
 </script>
 

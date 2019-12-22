@@ -192,6 +192,8 @@ class Pelayanan extends Admin
 				'tipe' => $this->input->post('tipe'),
 			];
 
+			$user = db_get_data('aauth_users', ['full_name'=>$save_data['nama']]);
+
 			if ($approve_rt) {
 				if ($approve_rt == '0') {
 					$save_data = array(
@@ -200,6 +202,7 @@ class Pelayanan extends Admin
 					);
 				} else if ($approve_rt == '1') {
 					$this->aauth->send_pms(get_user_data('id'), $ketua_rw, 'LAYANAN-'.$id, 'Permintaan '.$save_data['tipe'].' '.$save_data['nama'].' Telah Disetujui RT');
+					$this->aauth->send_pms(get_user_data('id'), $user->id, 'LAYANAN-'.$id, 'Permintaan '.$save_data['tipe'].' Anda telah disetujui oleh RT, selanjutnya menunggu persetujuan RW.');
 					$save_data = array(
 						'approve_rt' => '1',
 						'status' => 'Menunggu Persetujuan RW',
@@ -209,6 +212,7 @@ class Pelayanan extends Admin
 						'approve_rt' => '2',
 						'status' => 'Ditolak Oleh RT',
 					);
+					$this->aauth->send_pms(get_user_data('id'), $user->id, 'TOLAK-'.$id, 'Mohon maaf permohonan Anda ditolak oleh RT, harap periksa kembali persyaratan pendukung.');
 				}
 			} else if ($approve_rw) {
 				if ($approve_rw == '0') {
@@ -218,6 +222,7 @@ class Pelayanan extends Admin
 					);
 				} else if ($approve_rw == '1') {
 					$this->aauth->send_pms(get_user_data('id'), 4, 'LAYANAN-'.$id, 'Permintaan '.$save_data['tipe'].' '.$save_data['nama'].' Telah Disetujui RW');
+					$this->aauth->send_pms(get_user_data('id'), $user->id, 'LAYANAN-'.$id, 'Permintaan '.$save_data['tipe'].' Anda telah disetujui oleh RW, selanjutnya menunggu persetujuan Kelurahan.');
 					$save_data = array(
 						'approve_rw' => '1',
 						'status' => 'Menunggu Persetujuan Kelurahan',
@@ -227,6 +232,7 @@ class Pelayanan extends Admin
 						'approve_rw' => '2',
 						'status' => 'Ditolak Oleh RW',
 					);
+					$this->aauth->send_pms(get_user_data('id'), $user->id, 'TOLAK-'.$id, 'Mohon maaf permohonan Anda ditolak oleh RW, harap periksa kembali persyaratan pendukung.');
 				}
 			} else if ($approve_kelurahan) {
 				if ($approve_kelurahan == '0') {
@@ -239,11 +245,19 @@ class Pelayanan extends Admin
 						'approve_kelurahan' => '1',
 						'status' => $this->input->post('status'),
 					);
+					if ($this->input->post('status') == 'Selesai') {
+						$this->aauth->send_pms(get_user_data('id'), $user->id, 'LAYANAN-'.$id, 'Halo '.$user->full_name.', Permohonan administrasi kamu sudah selesai, silahkan ambil di loket kelurahan pada pukul 08.00 - 15.00 WIB.');
+					} elseif ($this->input->post('status') == 'Kuesioner') {
+						$this->aauth->send_pms(get_user_data('id'), $user->id, 'LAYANAN-'.$id, 'Halo '.$user->full_name.', Permohonan administrasi kamu sudah disetujui, namun sebelumnya mohon mengisi kuesioner terlebih dahulu.');
+					} elseif ($this->input->post('status') == 'Proses') {
+						$this->aauth->send_pms(get_user_data('id'), $user->id, 'LAYANAN-'.$id, 'Halo '.$user->full_name.', Permohonan administrasi kamu sedang diproses.');
+					}
 				} else {
 					$save_data = array(
 						'approve_kelurahan' => '2',
 						'status' => 'Ditolak Oleh Kelurahan',
 					);
+					$this->aauth->send_pms(get_user_data('id'), $user->id, 'TOLAK-'.$id, 'Mohon maaf permohonan Anda ditolak oleh kelurahan, harap periksa kembali persyaratan pendukung.');
 				}
 			}
 
