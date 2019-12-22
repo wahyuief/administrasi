@@ -128,7 +128,7 @@ jQuery(document).ready(domo);
                            <td><?= _ent($pelayanan->tanggal); ?></td> 
                            <td width="200">
                               <?php if($this->aauth->is_member(6) && db_get_data('pelayanan', ['id'=>$pelayanan->id, 'status'=>'Kuesioner'])){?>
-                              <a href="<?= site_url('administrator/keusioner/add'); ?>" class="label-default"><i class="fa fa-pencil"></i> Kuesioner
+                              <a href="<?= site_url('administrator/kuesioner/add'); ?>" class="label-default"><i class="fa fa-pencil"></i> Kuesioner
                               <?php } ?>
                               <?php is_allowed('pelayanan_view', function() use ($pelayanan){?>
                               <a href="<?= site_url('administrator/pelayanan/view/' . $pelayanan->id); ?>" class="label-default"><i class="fa fa-newspaper-o"></i> <?= cclang('view_button'); ?>
