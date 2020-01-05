@@ -82,7 +82,8 @@ jQuery(document).ready(domo);
                            </th>
                            <th>User</th>
                            <th>Pernyataan</th>
-                           <th>Jawaban</th>
+                           <th>Persepsi</th>
+                           <th>Harapan</th>
                            <!-- <th>Action</th> -->
                         </tr>
                      </thead>
@@ -96,7 +97,8 @@ jQuery(document).ready(domo);
                            <td><?= db_get_data('aauth_users', ['id'=>$kuesioner->user])->full_name; ?></td> 
                            <td><?= _ent($kuesioner->kuesioner_pertanyaan_pertanyaan); ?></td>
                              
-                           <td><?= _ent($kuesioner->jawaban); ?></td> 
+                           <td><?= _ent($kuesioner->jawaban_persepsi); ?></td> 
+                           <td><?= _ent($kuesioner->jawaban_harapan); ?></td> 
                            <!-- <td width="200">
                               <?php is_allowed('kuesioner_view', function() use ($kuesioner){?>
                               <a href="<?= site_url('administrator/kuesioner/view/' . $kuesioner->id); ?>" class="label-default"><i class="fa fa-newspaper-o"></i> <?= cclang('view_button'); ?>

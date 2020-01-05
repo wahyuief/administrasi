@@ -5,7 +5,7 @@ class Model_kuesioner extends MY_Model {
 
 	private $primary_key 	= 'id';
 	private $table_name 	= 'kuesioner';
-	private $field_search 	= ['user', 'pertanyaan', 'jawaban'];
+	private $field_search 	= ['user', 'pertanyaan', 'jawaban_persepsi', 'jawaban_harapan'];
 
 	public function __construct()
 	{
@@ -87,7 +87,7 @@ class Model_kuesioner extends MY_Model {
     public function join_avaiable() {
         $this->db->join('kuesioner_pertanyaan', 'kuesioner_pertanyaan.id = kuesioner.pertanyaan', 'LEFT');
         
-    	$this->db->select('kuesioner.*,kuesioner_pertanyaan.pertanyaan as kuesioner_pertanyaan_pertanyaan');
+    	$this->db->select('kuesioner.*,kuesioner_pertanyaan.pertanyaan as kuesioner_pertanyaan_pertanyaan,kuesioner_pertanyaan.id as pertanyaan_id,kuesioner_pertanyaan.tipe as pertanyaan_tipe');
 
 
         return $this;
@@ -100,6 +100,16 @@ class Model_kuesioner extends MY_Model {
 	
 	public function group_nama() {
 		$this->db->group_by('user');
+		return $this;
+	}
+
+	public function group_pertanyaan() {
+		$this->db->group_by('pertanyaan');
+		return $this;
+	}
+
+	public function group_tipe() {
+		$this->db->group_by('pertanyaan_tipe');
 		return $this;
 	}
 

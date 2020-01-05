@@ -47,6 +47,75 @@ class Kuesioner extends Admin
 		$this->render('backend/standart/administrator/kuesioner/kuesioner_list_nama', $this->data);
 	}
 
+	public function persepsi($offset = 0)
+	{
+		$this->is_allowed('kuesioner_list');
+
+		$filter = $this->input->get('q');
+		$field 	= $this->input->get('f');
+
+		$this->data['kuesioners'] = $this->model_kuesioner->group_pertanyaan()->get($filter, $field, $this->limit_page, $offset);
+		$this->data['kuesioner_counts'] = $this->model_kuesioner->group_pertanyaan()->count_all($filter, $field);
+
+		$config = [
+			'base_url'     => 'administrator/kuesioner/index/',
+			'total_rows'   => $this->model_kuesioner->count_all($filter, $field),
+			'per_page'     => $this->limit_page,
+			'uri_segment'  => 4,
+		];
+
+		$this->data['pagination'] = $this->pagination($config);
+
+		$this->template->title('Persepsi');
+		$this->render('backend/standart/administrator/kuesioner/persepsi', $this->data);
+	}
+
+	public function harapan($offset = 0)
+	{
+		$this->is_allowed('kuesioner_list');
+
+		$filter = $this->input->get('q');
+		$field 	= $this->input->get('f');
+
+		$this->data['kuesioners'] = $this->model_kuesioner->group_pertanyaan()->get($filter, $field, $this->limit_page, $offset);
+		$this->data['kuesioner_counts'] = $this->model_kuesioner->group_pertanyaan()->count_all($filter, $field);
+
+		$config = [
+			'base_url'     => 'administrator/kuesioner/index/',
+			'total_rows'   => $this->model_kuesioner->count_all($filter, $field),
+			'per_page'     => $this->limit_page,
+			'uri_segment'  => 4,
+		];
+
+		$this->data['pagination'] = $this->pagination($config);
+
+		$this->template->title('Harapan');
+		$this->render('backend/standart/administrator/kuesioner/harapan', $this->data);
+	}
+
+	public function servqual($offset = 0)
+	{
+		$this->is_allowed('kuesioner_list');
+
+		$filter = $this->input->get('q');
+		$field 	= $this->input->get('f');
+
+		$this->data['kuesioners'] = $this->model_kuesioner->group_pertanyaan()->get($filter, $field, $this->limit_page, $offset);
+		$this->data['kuesioner_counts'] = $this->model_kuesioner->group_pertanyaan()->count_all($filter, $field);
+
+		$config = [
+			'base_url'     => 'administrator/kuesioner/index/',
+			'total_rows'   => $this->model_kuesioner->count_all($filter, $field),
+			'per_page'     => $this->limit_page,
+			'uri_segment'  => 4,
+		];
+
+		$this->data['pagination'] = $this->pagination($config);
+
+		$this->template->title('Servqual');
+		$this->render('backend/standart/administrator/kuesioner/servqual', $this->data);
+	}
+
 	public function nama($offset = 0)
 	{
 		$this->is_allowed('kuesioner_list');
@@ -89,24 +158,32 @@ class Kuesioner extends Admin
 	public function simpan_jawaban()
 	{
 		$user = get_user_data('id');
-		$pertanyaan = $this->input->get('pertanyaan');
-		$jawaban = $this->input->get('jawaban');
-		$exist = db_get_data('kuesioner', ['user'=>$user, 'pertanyaan'=>$pertanyaan]);
+		$pertanyaan = $this->input->post('pertanyaan');
+		$persepsi = $this->input->post('jawaban_persepsi');
+		$harapan = $this->input->post('jawaban_harapan');
 
-		$save_data = array(
-			'user' => $user,
-			'pertanyaan' => $pertanyaan,
-			'jawaban' => $jawaban
-		);
-
-		if ($exist) {
-			$this->db->where([
+		$i = 1;
+		foreach ($pertanyaan as $tanya) {
+			$exist = db_get_data('kuesioner', ['user'=>$user, 'pertanyaan'=>$tanya]);
+			$sepsi = $persepsi[$i++];
+			$harap = $harapan[$i++];
+			$save_data = array(
 				'user' => $user,
-				'pertanyaan' => $pertanyaan
-			]);
-			$update = $this->db->update('kuesioner', $save_data);
-		} else {
-			$insert = $this->model_kuesioner->store($save_data);
+				'pertanyaan' => $tanya,
+				'jawaban_persepsi' => $sepsi,
+				'jawaban_harapan' => $harap,
+				'tanggal' => date('Y-m-d')
+			);
+
+			if ($exist) {
+				$this->db->where([
+					'user' => $user,
+					'pertanyaan' => $tanya
+				]);
+				$update = $this->db->update('kuesioner', $save_data);
+			} else {
+				$insert = $this->model_kuesioner->store($save_data);
+			}
 		}
 		
 		redirect('administrator/kuesioner/add','refresh');

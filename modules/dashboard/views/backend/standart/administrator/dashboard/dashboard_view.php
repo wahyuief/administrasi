@@ -85,6 +85,7 @@
             </div>
         </div>
 
+        <?php if($this->aauth->is_member(1) || $this->aauth->is_member(4)): ?>
         <div class="col-md-6">
             <div class="box box-warning">
                 <div class="box-body ">
@@ -99,6 +100,7 @@
                 </div>
             </div>
         </div>
+        
 
         <div class="col-md-12">
          <div class="box box-warning">
@@ -107,6 +109,7 @@
                   <table class="table table-bordered table-striped dataTable">
                      <thead>
                         <tr class="">
+                           <th>No</th>
                            <th>Pertanyaan</th>
                            <th>Sangat Puas</th>
                            <th>Puas</th>
@@ -116,23 +119,25 @@
                         </tr>
                      </thead>
                      <tbody id="tbody_kuesioner_pertanyaan">
-                     <?php foreach(db_get_all_data('kuesioner_pertanyaan') as $kuesioner_pertanyaan): ?>
+                     <?php $i=1;foreach(db_get_all_data('kuesioner_tipe') as $tipe): ?>
                         <tr>
-                           <td><?= _ent($kuesioner_pertanyaan->pertanyaan); ?></td>
-                           <td align="center"><?php echo count(db_get_data('kuesioner', ['pertanyaan'=>$kuesioner_pertanyaan->id, 'jawaban'=>'Sangat Puas'])); ?></td>
-                           <td align="center"><?php echo count(db_get_data('kuesioner', ['pertanyaan'=>$kuesioner_pertanyaan->id, 'jawaban'=>'Puas'])); ?></td>
-                           <td align="center"><?php echo count(db_get_data('kuesioner', ['pertanyaan'=>$kuesioner_pertanyaan->id, 'jawaban'=>'Cukup Puas'])); ?></td>
-                           <td align="center"><?php echo count(db_get_data('kuesioner', ['pertanyaan'=>$kuesioner_pertanyaan->id, 'jawaban'=>'Tidak Puas'])); ?></td>
-                           <td align="center"><?php echo count(db_get_data('kuesioner', ['pertanyaan'=>$kuesioner_pertanyaan->id, 'jawaban'=>'Sangat Tidak Puas'])); ?></td>
+                            <td></td>
+                            <td colspan="2">
+                            <b><?php echo $tipe->nama ?></b>
+                            <?php foreach(db_get_all_data('kuesioner_pertanyaan', ['tipe'=>$tipe->id]) as $kuesioner_pertanyaan): ?>
+                            <tr>
+                                <td><?php echo $i++ ?></td>
+                                <td><?= _ent($kuesioner_pertanyaan->pertanyaan); ?></td>
+                                <td align="center"><?php echo count(db_get_all_data('kuesioner', ['pertanyaan'=>$kuesioner_pertanyaan->id, 'jawaban'=>'Sangat Puas'])); ?></td>
+                                <td align="center"><?php echo count(db_get_all_data('kuesioner', ['pertanyaan'=>$kuesioner_pertanyaan->id, 'jawaban'=>'Puas'])); ?></td>
+                                <td align="center"><?php echo count(db_get_all_data('kuesioner', ['pertanyaan'=>$kuesioner_pertanyaan->id, 'jawaban'=>'Cukup Puas'])); ?></td>
+                                <td align="center"><?php echo count(db_get_all_data('kuesioner', ['pertanyaan'=>$kuesioner_pertanyaan->id, 'jawaban'=>'Tidak Puas'])); ?></td>
+                                <td align="center"><?php echo count(db_get_all_data('kuesioner', ['pertanyaan'=>$kuesioner_pertanyaan->id, 'jawaban'=>'Sangat Tidak Puas'])); ?></td>
+                            </tr>
+                            <?php endforeach; ?>
+                            </td>
                         </tr>
-                      <?php endforeach; ?>
-                      <?php if ($kuesioner_pertanyaan_counts == 0) :?>
-                         <tr>
-                           <td colspan="100">
-                           Kuesioner Pertanyaan data is not available
-                           </td>
-                         </tr>
-                      <?php endif; ?>
+                    <?php endforeach; ?>
                      </tbody>
                   </table>
                 </div>
@@ -141,6 +146,7 @@
          </div>
          <!--/box -->
       </div>
+      <?php endif; ?>
     </div>
   
       <!-- /.row -->
@@ -182,15 +188,16 @@ var ctx1 = document.getElementById("barChart").getContext("2d");
   var myChart = new Chart(ctx1, {
       type: 'bar',
       data: {
-          labels: ['Sangat Puas', 'Puas', 'Cukup Puas', 'Tidak Puas', 'Sangat Tidak Puas'],
+          labels: ['Tangible', 'Reliability', 'Responsiveness', 'Assurance', 'Emphaty', 'Application'],
           datasets: [{
               label: 'Statistik Kuesioner',
               data: [
-                <?php echo count(db_get_data('kuesioner', ['jawaban'=>'Sangat Puas'])); ?>,
-                <?php echo count(db_get_data('kuesioner', ['jawaban'=>'Puas'])); ?>,
-                <?php echo count(db_get_data('kuesioner', ['jawaban'=>'Cukup Puas'])); ?>,
-                <?php echo count(db_get_data('kuesioner', ['jawaban'=>'Tidak Puas'])); ?>,
-                <?php echo count(db_get_data('kuesioner', ['jawaban'=>'Sangat Tidak Puas'])); ?>],
+                <?php $this->db->group_by('user');echo count(db_get_all_data('kuesioner', ['tipe'=>'1'])); ?>,
+                <?php $this->db->group_by('user');echo count(db_get_all_data('kuesioner', ['tipe'=>'2'])); ?>,
+                <?php $this->db->group_by('user');echo count(db_get_all_data('kuesioner', ['tipe'=>'3'])); ?>,
+                <?php $this->db->group_by('user');echo count(db_get_all_data('kuesioner', ['tipe'=>'4'])); ?>,
+                <?php $this->db->group_by('user');echo count(db_get_all_data('kuesioner', ['tipe'=>'5'])); ?>,
+                <?php $this->db->group_by('user');echo count(db_get_all_data('kuesioner', ['tipe'=>'6'])); ?>],
               backgroundColor: [
                 "rgb(153, 102, 255)",
                 "rgb(54, 162, 235)",

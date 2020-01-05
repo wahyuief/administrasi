@@ -133,9 +133,9 @@ jQuery(document).ready(domo);
                               <?php is_allowed('pelayanan_view', function() use ($pelayanan){?>
                               <a href="<?= site_url('administrator/pelayanan/view/' . $pelayanan->id); ?>" class="label-default"><i class="fa fa-newspaper-o"></i> <?= cclang('view_button'); ?>
                               <?php }) ?>
-                              <?php is_allowed('pelayanan_update', function() use ($pelayanan){?>
+                              <!-- <?php is_allowed('pelayanan_update', function() use ($pelayanan){?>
                               <a href="<?= site_url('administrator/pelayanan/edit/' . $pelayanan->id); ?>" class="label-default"><i class="fa fa-edit "></i> <?= cclang('update_button'); ?></a>
-                              <?php }) ?>
+                              <?php }) ?> -->
                               <?php is_allowed('pelayanan_delete', function() use ($pelayanan){?>
                               <a href="javascript:void(0);" data-href="<?= site_url('administrator/pelayanan/delete/' . $pelayanan->id); ?>" class="label-default remove-data"><i class="fa fa-close"></i> <?= cclang('remove_button'); ?></a>
                                <?php }) ?>

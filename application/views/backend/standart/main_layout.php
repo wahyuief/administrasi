@@ -244,6 +244,12 @@
             </a>
           </li>
           <li class=" "> 
+              <a href="<?= BASE_URL ?>administrator/penduduk"><i class="fa fa-users text-yellow"></i> <span>Kelola Penduduk</span>
+              <span class="pull-right-container"></i>
+              </span>
+            </a>
+          </li>
+          <li class=" "> 
               <a href="<?= BASE_URL ?>administrator/user/add"><i class="fa fa-user text-yellow"></i> <span>Pendaftaran NIK</span>
               <span class="pull-right-container"></i>
               </span>
@@ -268,6 +274,12 @@
             </span>
           </a>
         </li>
+        <li class=" "> 
+              <a href="<?= BASE_URL ?>administrator/penduduk"><i class="fa fa-users text-yellow"></i> <span>Kelola Penduduk</span>
+              <span class="pull-right-container"></i>
+              </span>
+            </a>
+          </li>
         <?php elseif($this->aauth->is_member(4)): ?>
         <li class=" "> 
             <a href="<?= BASE_URL ?>administrator/dashboard"><i class="fa fa-dashboard text-yellow"></i> <span>Dashboard</span>
