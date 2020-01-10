@@ -128,11 +128,11 @@
                             <tr>
                                 <td><?php echo $i++ ?></td>
                                 <td><?= _ent($kuesioner_pertanyaan->pertanyaan); ?></td>
-                                <td align="center"><?php echo count(db_get_all_data('kuesioner', ['pertanyaan'=>$kuesioner_pertanyaan->id, 'jawaban'=>'Sangat Puas'])); ?></td>
-                                <td align="center"><?php echo count(db_get_all_data('kuesioner', ['pertanyaan'=>$kuesioner_pertanyaan->id, 'jawaban'=>'Puas'])); ?></td>
-                                <td align="center"><?php echo count(db_get_all_data('kuesioner', ['pertanyaan'=>$kuesioner_pertanyaan->id, 'jawaban'=>'Cukup Puas'])); ?></td>
-                                <td align="center"><?php echo count(db_get_all_data('kuesioner', ['pertanyaan'=>$kuesioner_pertanyaan->id, 'jawaban'=>'Tidak Puas'])); ?></td>
-                                <td align="center"><?php echo count(db_get_all_data('kuesioner', ['pertanyaan'=>$kuesioner_pertanyaan->id, 'jawaban'=>'Sangat Tidak Puas'])); ?></td>
+                                <td align="center"><?php echo count(db_get_all_data('kuesioner', ['pertanyaan'=>$kuesioner_pertanyaan->id, 'jawaban_persepsi'=>'Sangat Puas'])); ?></td>
+                                <td align="center"><?php echo count(db_get_all_data('kuesioner', ['pertanyaan'=>$kuesioner_pertanyaan->id, 'jawaban_persepsi'=>'Puas'])); ?></td>
+                                <td align="center"><?php echo count(db_get_all_data('kuesioner', ['pertanyaan'=>$kuesioner_pertanyaan->id, 'jawaban_persepsi'=>'Cukup Puas'])); ?></td>
+                                <td align="center"><?php echo count(db_get_all_data('kuesioner', ['pertanyaan'=>$kuesioner_pertanyaan->id, 'jawaban_persepsi'=>'Tidak Puas'])); ?></td>
+                                <td align="center"><?php echo count(db_get_all_data('kuesioner', ['pertanyaan'=>$kuesioner_pertanyaan->id, 'jawaban_persepsi'=>'Sangat Tidak Puas'])); ?></td>
                             </tr>
                             <?php endforeach; ?>
                             </td>
@@ -161,11 +161,11 @@ labels: ['Sangat Puas', 'Puas', 'Cukup Puas', 'Tidak Puas', 'Sangat Tidak Puas']
 datasets: [{
     label: "Statistik Kuesioner",
     data: [
-        <?php echo count(db_get_data('kuesioner', ['jawaban'=>'Sangat Puas'])); ?>,
-        <?php echo count(db_get_data('kuesioner', ['jawaban'=>'Puas'])); ?>,
-        <?php echo count(db_get_data('kuesioner', ['jawaban'=>'Cukup Puas'])); ?>,
-        <?php echo count(db_get_data('kuesioner', ['jawaban'=>'Tidak Puas'])); ?>,
-        <?php echo count(db_get_data('kuesioner', ['jawaban'=>'Sangat Tidak Puas'])); ?>],
+        <?php echo count(db_get_all_data('kuesioner', ['jawaban_persepsi'=>'Sangat Puas'])); ?>,
+        <?php echo count(db_get_all_data('kuesioner', ['jawaban_persepsi'=>'Puas'])); ?>,
+        <?php echo count(db_get_all_data('kuesioner', ['jawaban_persepsi'=>'Cukup Puas'])); ?>,
+        <?php echo count(db_get_all_data('kuesioner', ['jawaban_persepsi'=>'Tidak Puas'])); ?>,
+        <?php echo count(db_get_all_data('kuesioner', ['jawaban_persepsi'=>'Sangat Tidak Puas'])); ?>],
     backgroundColor: [
     "rgb(153, 102, 255)",
     "rgb(54, 162, 235)",
@@ -188,16 +188,30 @@ var ctx1 = document.getElementById("barChart").getContext("2d");
   var myChart = new Chart(ctx1, {
       type: 'bar',
       data: {
-          labels: ['Tangible', 'Reliability', 'Responsiveness', 'Assurance', 'Emphaty', 'Application'],
+          labels: ['Tangible', 'Reliability', 'Responsiveness', 'Assurance', 'Emphaty'],
           datasets: [{
               label: 'Statistik Kuesioner',
               data: [
-                <?php $this->db->group_by('user');echo count(db_get_all_data('kuesioner', ['tipe'=>'1'])); ?>,
-                <?php $this->db->group_by('user');echo count(db_get_all_data('kuesioner', ['tipe'=>'2'])); ?>,
-                <?php $this->db->group_by('user');echo count(db_get_all_data('kuesioner', ['tipe'=>'3'])); ?>,
-                <?php $this->db->group_by('user');echo count(db_get_all_data('kuesioner', ['tipe'=>'4'])); ?>,
-                <?php $this->db->group_by('user');echo count(db_get_all_data('kuesioner', ['tipe'=>'5'])); ?>,
-                <?php $this->db->group_by('user');echo count(db_get_all_data('kuesioner', ['tipe'=>'6'])); ?>],
+                <?php $this->db->from('kuesioner');
+                    $this->db->join('kuesioner_pertanyaan', 'kuesioner_pertanyaan.id = kuesioner.pertanyaan');
+                    $this->db->where('tipe', 1);
+                    echo count($this->db->get()->result()); ?>,
+                <?php $this->db->from('kuesioner');
+                    $this->db->join('kuesioner_pertanyaan', 'kuesioner_pertanyaan.id = kuesioner.pertanyaan');
+                    $this->db->where('tipe', 2);
+                    echo count($this->db->get()->result()); ?>,
+                <?php $this->db->from('kuesioner');
+                    $this->db->join('kuesioner_pertanyaan', 'kuesioner_pertanyaan.id = kuesioner.pertanyaan');
+                    $this->db->where('tipe', 3);
+                    echo count($this->db->get()->result()); ?>,
+                <?php $this->db->from('kuesioner');
+                    $this->db->join('kuesioner_pertanyaan', 'kuesioner_pertanyaan.id = kuesioner.pertanyaan');
+                    $this->db->where('tipe', 4);
+                    echo count($this->db->get()->result()); ?>,
+                <?php $this->db->from('kuesioner');
+                    $this->db->join('kuesioner_pertanyaan', 'kuesioner_pertanyaan.id = kuesioner.pertanyaan');
+                    $this->db->where('tipe', 5);
+                    echo count($this->db->get()->result()); ?>],
               backgroundColor: [
                 "rgb(153, 102, 255)",
                 "rgb(54, 162, 235)",

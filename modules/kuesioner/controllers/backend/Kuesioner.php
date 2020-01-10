@@ -162,11 +162,11 @@ class Kuesioner extends Admin
 		$persepsi = $this->input->post('jawaban_persepsi');
 		$harapan = $this->input->post('jawaban_harapan');
 
-		$i = 1;
-		foreach ($pertanyaan as $tanya) {
+		for ($i=0; $i < count($pertanyaan); $i++) { 
+			$tanya = $pertanyaan[$i];
+			$sepsi = $persepsi[$i];
+			$harap = $harapan[$i];
 			$exist = db_get_data('kuesioner', ['user'=>$user, 'pertanyaan'=>$tanya]);
-			$sepsi = $persepsi[$i++];
-			$harap = $harapan[$i++];
 			$save_data = array(
 				'user' => $user,
 				'pertanyaan' => $tanya,

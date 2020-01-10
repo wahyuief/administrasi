@@ -55,12 +55,7 @@ jQuery(document).ready(domo);
                         <?php is_allowed('kuesioner_add', function(){?>
                         <a class="btn btn-flat btn-success btn_add_new" id="btn_add_new" title="<?= cclang('add_new_button', ['Kuesioner']); ?>  (Ctrl+a)" href="<?=  site_url('administrator/kuesioner/add'); ?>"><i class="fa fa-plus-square-o" ></i> <?= cclang('add_new_button', ['Kuesioner']); ?></a>
                         <?php }) ?>
-                        <?php is_allowed('kuesioner_export', function(){?>
-                        <a class="btn btn-flat btn-success" title="<?= cclang('export'); ?> Kuesioner" href="<?= site_url('administrator/kuesioner/export'); ?>"><i class="fa fa-file-excel-o" ></i> <?= cclang('export'); ?> XLS</a>
-                        <?php }) ?>
-                        <?php is_allowed('kuesioner_export', function(){?>
-                        <a class="btn btn-flat btn-success" title="<?= cclang('export'); ?> pdf Kuesioner" href="<?= site_url('administrator/kuesioner/export_pdf'); ?>"><i class="fa fa-file-pdf-o" ></i> <?= cclang('export'); ?> PDF</a>
-                        <?php }) ?>
+                        <a class="btn btn-flat btn-success" title="Kuesioner Statistik" href="<?= site_url('administrator/kuesioner/persepsi'); ?>">Statistik</a>
                      </div>
                      <div class="widget-user-image">
                         <img class="img-circle" src="<?= BASE_ASSET; ?>/img/list.png" alt="User Avatar">

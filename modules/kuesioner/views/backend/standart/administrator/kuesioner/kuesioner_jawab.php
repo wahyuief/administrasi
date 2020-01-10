@@ -77,7 +77,7 @@
                                       <input type="hidden" name="pertanyaan[]" id="pertanyaan" value="<?php echo $pertanyaan->id; ?>">
                                     </td>
                                     <td>
-                                      <select  class="form-control" name="jawaban_persepsi" id="jawaban_persepsi" onchange="//location.replace(BASE_URL + 'administrator/kuesioner/simpan_jawaban?pertanyaan=<?php echo $pertanyaan->id ?>&jawaban=' + this.value + '&tipe=<?php echo $pertanyaan->tipe ?>')" data-placeholder="Pilih Jawaban" >
+                                      <select  class="form-control" name="jawaban_persepsi[]" id="jawaban_persepsi" onchange="//location.replace(BASE_URL + 'administrator/kuesioner/simpan_jawaban?pertanyaan=<?php echo $pertanyaan->id ?>&jawaban=' + this.value + '&tipe=<?php echo $pertanyaan->tipe ?>')" data-placeholder="Pilih Jawaban" >
                                         <option selected disabled>Pilih Persepsi</option>
                                         <option <?php echo(db_get_data('kuesioner', ['user'=>get_user_data('id'), 'pertanyaan'=>$pertanyaan->id])->jawaban_persepsi == 'Sangat Puas' ? 'selected' : '') ?> value="Sangat Puas">Sangat Puas</option>
                                         <option <?php echo(db_get_data('kuesioner', ['user'=>get_user_data('id'), 'pertanyaan'=>$pertanyaan->id])->jawaban_persepsi == 'Puas' ? 'selected' : '') ?> value="Puas">Puas</option>
@@ -87,7 +87,7 @@
                                       </select>
                                     </td>
                                     <td>
-                                      <select  class="form-control" name="jawaban_harapan" id="jawaban_harapan" onchange="//location.replace(BASE_URL + 'administrator/kuesioner/simpan_jawaban?pertanyaan=<?php echo $pertanyaan->id ?>&jawaban=' + this.value + '&tipe=<?php echo $pertanyaan->tipe ?>')" data-placeholder="Pilih Jawaban Harapan" >
+                                      <select  class="form-control" name="jawaban_harapan[]" id="jawaban_harapan" onchange="//location.replace(BASE_URL + 'administrator/kuesioner/simpan_jawaban?pertanyaan=<?php echo $pertanyaan->id ?>&jawaban=' + this.value + '&tipe=<?php echo $pertanyaan->tipe ?>')" data-placeholder="Pilih Jawaban Harapan" >
                                         <option selected disabled>Pilih Harapan</option>
                                         <option <?php echo(db_get_data('kuesioner', ['user'=>get_user_data('id'), 'pertanyaan'=>$pertanyaan->id])->jawaban_harapan == 'Sangat Puas' ? 'selected' : '') ?> value="Sangat Puas">Sangat Puas</option>
                                         <option <?php echo(db_get_data('kuesioner', ['user'=>get_user_data('id'), 'pertanyaan'=>$pertanyaan->id])->jawaban_harapan == 'Puas' ? 'selected' : '') ?> value="Puas">Puas</option>
